@@ -5,77 +5,84 @@
   white #e1dada
  */
 *,
-::before,
-::after {
-    box-sizing: border-box;
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 body {
-    background-color: #a2a1a1;
-    margin: 0;
-    padding: 0;
+  background-color: #a2a1a1;
+  margin: 0;
+  padding: 0;
 }
 .calc {
-    margin: 50px auto;
-    align-items: center;
-    overflow: auto;
+  margin: 50px auto;
+  align-items: center;
+  overflow: auto;
 
-    width: 350px;
-    height: 500px;
-    background-color: rgb(32, 32, 32);
-    color: #e1dada;
-    border-radius: 5%;
-    box-shadow: 0px 0px 10px 3px rgb(32, 32, 32);
+  width: 350px;
+  min-height: 500px;
+  padding-bottom: 50px;
+  background-color: rgb(32, 32, 32);
+  color: #e1dada;
+  border-radius: 5%;
+  box-shadow: 0px 0px 10px 3px rgb(32, 32, 32);
 }
 
 .calc-screen {
-    margin: 50px auto 0px;
-    width: 262px;
-    text-align: right;
+  margin: 50px auto 0px;
+  width: 262px;
+  text-align: right;
 }
 
-.record {
-    font-size: 30px;
+.record-data-block {
+  font-size: 30px;
+  min-height: 40px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.prev-data-block {
+  min-height: 20px;
 }
 .m-btns {
-    display: flex;
-    margin: 15px auto;
-    width: 262px;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  margin: 15px auto;
+  width: 262px;
+  justify-content: space-around;
+  align-items: center;
 }
 .m-btn {
-    cursor: pointer;
-    user-select: none;
+  cursor: pointer;
+  user-select: none;
 }
 .m-btn:hover {
-    filter: brightness(115%);
+  filter: brightness(115%);
 }
 .m-btn:active {
-    filter: brightness(90%);
+  filter: brightness(90%);
 }
 
 .btns {
-    display: grid;
-    grid-template-columns: repeat(5, 50px);
-    grid-gap: 3px;
-    justify-content: center;
-    justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  grid-gap: 3px;
+  justify-content: center;
+  justify-items: center;
 }
 
 .btn {
-    width: 50px;
-    height: 50px;
-    background-color: #a6a6a6;
-    line-height: 50px;
-    border-radius: 3%;
-    text-align: center;
-    color: #000;
-    cursor: pointer;
-    user-select: none;
+  width: 50px;
+  height: 50px;
+  background-color: #a6a6a6;
+  line-height: 50px;
+  border-radius: 3%;
+  text-align: center;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
 }
 .btn:hover {
-    filter: brightness(115%);
+  filter: brightness(115%);
 }
 .btn:active {
-    filter: brightness(95%);
+  filter: brightness(95%);
 }
