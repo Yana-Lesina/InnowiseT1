@@ -8,7 +8,7 @@ class UpdateScreen {
 
   execute(obj) {
     this.currentOperand.textContent = obj.currentNum;
-    this.prevOperand.textContent = obj.prevNum;
+    this.prevOperand.textContent = `${obj.prevNum} ${obj.operation.sign}`;
   }
 }
 
@@ -33,22 +33,34 @@ class Calculator {
   undoCommand() {
     const command = this.history.pop();
     this.currentNum = command.execute(this.currentNum);
-    new UpdateScreen().execute(this.currentNum, '');
+    new UpdateScreen().execute(this);
   }
 }
 
-class UpdateNum {
+class UpdateCurr {
   execute(symbol, obj) {
     const currentOperand =
       document.querySelector('.record-data-block').textContent;
 
     if (symbol === '.' && currentOperand.includes('.')) return;
 
-    if (obj.operation.sign !== '' && obj.prevNum === '') {
-      obj.prevNum = obj.currentNum;
-      obj.currentNum = '';
-    }
+    // if (obj.operation.sign !== '' && obj.prevNum === '') {
+    //   obj.prevNum = obj.currentNum;
+    //   obj.currentNum = '';
+    // }
     obj.currentNum += symbol;
+  }
+}
+
+class AppendPrev {
+  execute(obj) {
+    obj.prevNum = obj.currentNum;
+  }
+}
+
+class ClearCurr {
+  execute(obj) {
+    obj.currentNum = '';
   }
 }
 
@@ -134,7 +146,7 @@ const calculator = new Calculator();
 
 numberBtns.forEach((numberBtn) => {
   numberBtn.addEventListener('click', () => {
-    new UpdateNum().execute(numberBtn.textContent, calculator);
+    new UpdateCurr().execute(numberBtn.textContent, calculator);
     new UpdateScreen().execute(calculator);
   });
 });
@@ -148,11 +160,19 @@ operationBtns.forEach((operationBtn) => {
         operationBtn.textContent
       ).create(calculator.prevNum, operationBtn.id);
 
+      new UpdateScreen().execute(calculator);
+      new ClearCurr().execute(calculator);
+
       return;
     }
+
+    new AppendPrev().execute(calculator);
 
     calculator.operation = new OperationFactory(
       operationBtn.textContent
     ).create(calculator.currentNum, operationBtn.id);
+
+    new UpdateScreen().execute(calculator);
+    new ClearCurr().execute(calculator);
   });
 });
