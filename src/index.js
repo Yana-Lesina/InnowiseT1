@@ -60,6 +60,10 @@ class Add {
   execute(currNum) {
     return +this.num + +currNum;
   }
+
+  undo(currNum) {
+    return +this.num - +currNum;
+  }
 }
 
 class Substract {
@@ -68,17 +72,39 @@ class Substract {
   }
 
   execute(currNum) {
-    // console.log('Substract');
     return +this.num - +currNum;
+  }
+
+  undo(currNum) {
+    return +this.num + +currNum;
   }
 }
 
-class Equal {
+class Mult {
   constructor(num) {
     this.num = num;
   }
-  execute(num) {
-    return num;
+
+  execute(currNum) {
+    return +this.num * +currNum;
+  }
+
+  undo(currNum) {
+    return +this.num / +currNum;
+  }
+}
+
+class Divide {
+  constructor(num) {
+    this.num = num;
+  }
+
+  execute(currNum) {
+    return +this.num / +currNum;
+  }
+
+  undo(currNum) {
+    return +this.num * +currNum;
   }
 }
 
@@ -90,9 +116,8 @@ class OperationFactory {
   static list = {
     add: Add,
     substract: Substract,
-    // mult: Mult,
-    // divide: Divide,
-    equal: Equal,
+    mult: Mult,
+    divide: Divide,
   };
 
   create(num, operType) {
@@ -111,7 +136,6 @@ numberBtns.forEach((numberBtn) => {
   numberBtn.addEventListener('click', () => {
     new UpdateNum().execute(numberBtn.textContent, calculator);
     new UpdateScreen().execute(calculator);
-    console.log(calculator);
   });
 });
 
@@ -119,18 +143,16 @@ operationBtns.forEach((operationBtn) => {
   operationBtn.addEventListener('click', () => {
     if (calculator.operation.execute !== undefined) {
       calculator.executeCommand(calculator.operation);
-    }
 
-    new UpdateNum().execute('', calculator);
-    new UpdateScreen().execute(calculator);
-    console.log(calculator);
+      calculator.operation = new OperationFactory(
+        operationBtn.textContent
+      ).create(calculator.prevNum, operationBtn.id);
+
+      return;
+    }
 
     calculator.operation = new OperationFactory(
       operationBtn.textContent
     ).create(calculator.currentNum, operationBtn.id);
-
-    // new UpdateNum().execute('', calculator);
-    // new UpdateScreen().execute(calculator);
-    console.log(calculator);
   });
 });
