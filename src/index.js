@@ -24,9 +24,9 @@ class Calculator {
   executeCommand(command) {
     this.history.push(command);
     this.prevNum = command.execute(this.currentNum);
-    this.currentNum = '';
+    this.currentNum = command.execute(this.currentNum);
     this.operation = { sign: '' };
-    new UpdateScreen().execute(this);
+    // new UpdateScreen().execute(this);
     return this;
   }
 
@@ -142,6 +142,7 @@ class OperationFactory {
 
 const numberBtns = document.querySelectorAll('[data-num]');
 const operationBtns = document.querySelectorAll('[data-operation]');
+const equalBtn = document.querySelector('[data-operation-equal]');
 const calculator = new Calculator();
 
 numberBtns.forEach((numberBtn) => {
@@ -175,4 +176,10 @@ operationBtns.forEach((operationBtn) => {
     new UpdateScreen().execute(calculator);
     new ClearCurr().execute(calculator);
   });
+});
+
+equalBtn.addEventListener('click', () => {
+  calculator.executeCommand(calculator.operation);
+
+  new UpdateScreen().execute(calculator);
 });
