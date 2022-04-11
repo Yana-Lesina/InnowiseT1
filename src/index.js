@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-classes-per-file */
+
+import Calculator from './modules/Calculator';
+import OperationFactory from './modules/simpleCommands';
+
 class UpdateScreen {
   constructor() {
     this.currentOperand = document.querySelector('.record-data-block');
@@ -12,31 +16,6 @@ class UpdateScreen {
   }
 }
 
-class Calculator {
-  constructor() {
-    this.currentNum = '';
-    this.prevNum = '';
-    this.memoryNum = '';
-    this.operation = { sign: '' };
-    this.history = [];
-  }
-
-  executeCommand(command) {
-    this.history.push(command);
-    this.prevNum = command.execute(this.currentNum);
-    this.currentNum = command.execute(this.currentNum);
-    this.operation = { sign: '' };
-    // new UpdateScreen().execute(this);
-    return this;
-  }
-
-  undoCommand() {
-    const command = this.history.pop();
-    this.currentNum = command.execute(this.currentNum);
-    new UpdateScreen().execute(this);
-  }
-}
-
 class UpdateCurr {
   execute(symbol, obj) {
     const currentOperand =
@@ -44,10 +23,6 @@ class UpdateCurr {
 
     if (symbol === '.' && currentOperand.includes('.')) return;
 
-    // if (obj.operation.sign !== '' && obj.prevNum === '') {
-    //   obj.prevNum = obj.currentNum;
-    //   obj.currentNum = '';
-    // }
     obj.currentNum += symbol;
   }
 }
@@ -64,86 +39,11 @@ class ClearCurr {
   }
 }
 
-class Add {
-  constructor(num) {
-    this.num = num;
-  }
-
-  execute(currNum) {
-    return +this.num + +currNum;
-  }
-
-  undo(currNum) {
-    return +this.num - +currNum;
-  }
-}
-
-class Substract {
-  constructor(num) {
-    this.num = num;
-  }
-
-  execute(currNum) {
-    return +this.num - +currNum;
-  }
-
-  undo(currNum) {
-    return +this.num + +currNum;
-  }
-}
-
-class Mult {
-  constructor(num) {
-    this.num = num;
-  }
-
-  execute(currNum) {
-    return +this.num * +currNum;
-  }
-
-  undo(currNum) {
-    return +this.num / +currNum;
-  }
-}
-
-class Divide {
-  constructor(num) {
-    this.num = num;
-  }
-
-  execute(currNum) {
-    return +this.num / +currNum;
-  }
-
-  undo(currNum) {
-    return +this.num * +currNum;
-  }
-}
-
-class OperationFactory {
-  constructor(sign) {
-    this.sign = sign;
-  }
-
-  static list = {
-    add: Add,
-    substract: Substract,
-    mult: Mult,
-    divide: Divide,
-  };
-
-  create(num, operType) {
-    const Operation = OperationFactory.list[operType]; // Add
-    const oper = new Operation(num); // new Add
-    oper.sign = this.sign;
-    return oper;
-  }
-}
-
 const numberBtns = document.querySelectorAll('[data-num]');
 const operationBtns = document.querySelectorAll('[data-operation]');
 const equalBtn = document.querySelector('[data-operation-equal]');
 const calculator = new Calculator();
+console.log(calculator);
 
 numberBtns.forEach((numberBtn) => {
   numberBtn.addEventListener('click', () => {
@@ -159,7 +59,7 @@ operationBtns.forEach((operationBtn) => {
 
       calculator.operation = new OperationFactory(
         operationBtn.textContent
-      ).create(calculator.prevNum, operationBtn.id);
+      ).create(calculator.currentNum, operationBtn.id);
 
       new UpdateScreen().execute(calculator);
       new ClearCurr().execute(calculator);
@@ -182,4 +82,5 @@ equalBtn.addEventListener('click', () => {
   calculator.executeCommand(calculator.operation);
 
   new UpdateScreen().execute(calculator);
+  new ClearCurr().execute(calculator);
 });
