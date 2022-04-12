@@ -4,6 +4,10 @@
 import Command from './Command';
 
 class Add extends Command {
+  constructor(num) {
+    super();
+    this.num = num;
+  }
   execute(currNum) {
     return +this.num + +currNum;
   }
@@ -14,6 +18,10 @@ class Add extends Command {
 }
 
 class Substract extends Command {
+  constructor(num) {
+    super();
+    this.num = num;
+  }
   execute(currNum) {
     return +this.num - +currNum;
   }
@@ -24,6 +32,10 @@ class Substract extends Command {
 }
 
 class Mult extends Command {
+  constructor(num) {
+    super();
+    this.num = num;
+  }
   execute(currNum) {
     return +this.num * +currNum;
   }
@@ -34,6 +46,10 @@ class Mult extends Command {
 }
 
 class Divide extends Command {
+  constructor(num) {
+    super();
+    this.num = num;
+  }
   execute(currNum) {
     return +this.num / +currNum;
   }

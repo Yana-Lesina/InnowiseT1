@@ -12,7 +12,6 @@ class Calculator {
     this.history.push(command);
     this.prevNum = command.execute(this.currentNum);
     this.currentNum = command.execute(this.currentNum);
-    // this.currentNum = '';
     this.operation = { sign: '' };
     return this;
   }

@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 import { Add, Substract, Mult, Divide } from './simpleCommands';
+import DegreeY from './DegreeY';
 
 class OperationFactory {
   constructor(sign) {
@@ -11,6 +12,7 @@ class OperationFactory {
     substract: Substract,
     mult: Mult,
     divide: Divide,
+    'degree-y': DegreeY,
   };
 
   create(num, operType) {

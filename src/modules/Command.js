@@ -1,15 +1,15 @@
 /* eslint-disable linebreak-style */
 class Command {
-  constructor(num) {
-    this.num = num;
+  // constructor(num) {
+  //   this.num = num;
+  // }
+
+  execute() {
+    return +this.num;
   }
 
-  execute(currNum) {
-    return +this.num + +currNum;
-  }
-
-  undo(currNum) {
-    return +this.num - +currNum;
+  undo() {
+    return +this.num;
   }
 }
 

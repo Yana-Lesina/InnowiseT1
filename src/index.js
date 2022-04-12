@@ -5,6 +5,8 @@ import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
 import Clear from './modules/ClearAll';
 import ClearEntry from './modules/ClearEnrty';
+import Degree2 from './modules/Degree2';
+import Degree3 from './modules/Degree3';
 
 class UpdateScreen {
   constructor() {
@@ -57,10 +59,12 @@ class ClearCurr {
 const calculator = new Calculator();
 const numberBtns = document.querySelectorAll('[data-num]');
 const operationBtns = document.querySelectorAll('[data-operation]');
-const equalBtn = document.querySelector('[data-operation-equal]');
+const equalBtn = document.querySelector('[data-equal]');
 const clearAllBtn = document.querySelector('[data-clear-all]');
 const clearEntryBtn = document.querySelector('[data-clear-entry]');
-const undoBtn = document.querySelector('[data-undo]');
+const undoBtn = document.querySelector('[data-undo]'); // !!!!!!!!!!
+
+const btnsBlock = document.querySelector('.btns');
 
 numberBtns.forEach((numberBtn) => {
   numberBtn.addEventListener('click', () => {
@@ -75,7 +79,7 @@ operationBtns.forEach((operationBtn) => {
       calculator.executeCommand(calculator.operation);
 
       calculator.operation = new OperationFactory(
-        operationBtn.textContent
+        operationBtn.getAttribute('data-value')
       ).create(calculator.prevNum, operationBtn.id);
 
       new ClearCurr().execute(calculator);
@@ -87,7 +91,7 @@ operationBtns.forEach((operationBtn) => {
     new AppendPrev().execute(calculator);
 
     calculator.operation = new OperationFactory(
-      operationBtn.textContent
+      operationBtn.getAttribute('data-value')
     ).create(calculator.prevNum, operationBtn.id);
 
     new ClearCurr().execute(calculator);
@@ -114,4 +118,20 @@ undoBtn.addEventListener('click', () => {
   calculator.undoCommand(calculator.operation);
   new UpdateScreen().execute(calculator);
   new ClearCurr().execute(calculator);
+});
+
+btnsBlock.addEventListener('click', (e) => {
+  if (e.target.hasAttribute('data-degree2')) {
+    console.log('degree-2');
+    calculator.executeCommand(new Degree2());
+    new UpdateScreen().execute(calculator);
+  }
+  if (e.target.hasAttribute('data-degree3')) {
+    console.log('degree-3');
+    calculator.executeCommand(new Degree3());
+    new UpdateScreen().execute(calculator);
+  }
+  // if (e.target.classList.contains('degree-y')) {
+  //   console.log('degree-y');
+  // }
 });
