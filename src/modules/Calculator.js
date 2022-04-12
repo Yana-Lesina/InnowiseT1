@@ -12,13 +12,17 @@ class Calculator {
     this.history.push(command);
     this.prevNum = command.execute(this.currentNum);
     this.currentNum = command.execute(this.currentNum);
+    // this.currentNum = '';
     this.operation = { sign: '' };
     return this;
   }
 
   undoCommand() {
-    const command = this.history.pop();
-    this.currentNum = command.execute(this.currentNum);
+    const command = this.history.pop(); // потому что pop возвращает удалённое значение
+    this.currentNum = command.undo(this.prevNum);
+    this.prevNum = command.undo(this.prevNum);
+    this.operation = { sign: '' };
+    return this;
   }
 }
 

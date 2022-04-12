@@ -9,7 +9,7 @@ class Add extends Command {
   }
 
   undo(currNum) {
-    return +this.num - +currNum;
+    return +currNum - +this.num;
   }
 }
 
@@ -19,7 +19,7 @@ class Substract extends Command {
   }
 
   undo(currNum) {
-    return +this.num + +currNum;
+    return +currNum + +this.num;
   }
 }
 
@@ -29,7 +29,7 @@ class Mult extends Command {
   }
 
   undo(currNum) {
-    return +this.num / +currNum;
+    return +currNum / +this.num;
   }
 }
 
@@ -39,7 +39,7 @@ class Divide extends Command {
   }
 
   undo(currNum) {
-    return +this.num * +currNum;
+    return +currNum * +this.num;
   }
 }
 

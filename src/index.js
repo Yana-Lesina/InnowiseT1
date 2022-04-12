@@ -3,6 +3,8 @@
 
 import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
+import Clear from './modules/ClearAll';
+import ClearEntry from './modules/ClearEnrty';
 
 class UpdateScreen {
   constructor() {
@@ -23,6 +25,7 @@ class UpdateCurr {
 
     // чтобы юзеры не писали нескольлко точек
     if (symbol === '.' && currentOperand.includes('.')) return;
+    if (symbol === '0' && obj.currentNum === '') return;
     // была операция = то в current записываем число заново, т.е 5+2=7, вводим 8 => 8, а не 87
     if (
       calculator.currentNum !== '' &&
@@ -41,6 +44,7 @@ class UpdateCurr {
 class AppendPrev {
   execute(obj) {
     obj.prevNum = obj.currentNum;
+    obj.currentNum = '';
   }
 }
 
@@ -50,10 +54,13 @@ class ClearCurr {
   }
 }
 
+const calculator = new Calculator();
 const numberBtns = document.querySelectorAll('[data-num]');
 const operationBtns = document.querySelectorAll('[data-operation]');
 const equalBtn = document.querySelector('[data-operation-equal]');
-const calculator = new Calculator();
+const clearAllBtn = document.querySelector('[data-clear-all]');
+const clearEntryBtn = document.querySelector('[data-clear-entry]');
+const undoBtn = document.querySelector('[data-undo]');
 
 numberBtns.forEach((numberBtn) => {
   numberBtn.addEventListener('click', () => {
@@ -69,10 +76,10 @@ operationBtns.forEach((operationBtn) => {
 
       calculator.operation = new OperationFactory(
         operationBtn.textContent
-      ).create(calculator.currentNum, operationBtn.id);
+      ).create(calculator.prevNum, operationBtn.id);
 
-      new UpdateScreen().execute(calculator);
       new ClearCurr().execute(calculator);
+      new UpdateScreen().execute(calculator);
 
       return;
     }
@@ -81,16 +88,30 @@ operationBtns.forEach((operationBtn) => {
 
     calculator.operation = new OperationFactory(
       operationBtn.textContent
-    ).create(calculator.currentNum, operationBtn.id);
+    ).create(calculator.prevNum, operationBtn.id);
 
-    new UpdateScreen().execute(calculator);
     new ClearCurr().execute(calculator);
+    new UpdateScreen().execute(calculator);
   });
 });
 
 equalBtn.addEventListener('click', () => {
   calculator.executeCommand(calculator.operation);
-
   new UpdateScreen().execute(calculator);
-  new AppendPrev().execute(calculator);
+});
+
+clearAllBtn.addEventListener('click', () => {
+  new Clear().execute(calculator);
+  new UpdateScreen().execute(calculator);
+});
+
+clearEntryBtn.addEventListener('click', () => {
+  new ClearEntry().execute(calculator);
+  new UpdateScreen().execute(calculator);
+});
+
+undoBtn.addEventListener('click', () => {
+  calculator.undoCommand(calculator.operation);
+  new UpdateScreen().execute(calculator);
+  new ClearCurr().execute(calculator);
 });
