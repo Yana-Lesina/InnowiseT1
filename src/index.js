@@ -3,10 +3,12 @@
 
 import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
-import Clear from './modules/ClearAll';
+import ClearAll from './modules/ClearAll';
 import ClearEntry from './modules/ClearEnrty';
 import Degree2 from './modules/Degree2';
 import Degree3 from './modules/Degree3';
+import Root2 from './modules/Root2';
+import Root3 from './modules/Root3';
 
 class UpdateScreen {
   constructor() {
@@ -27,7 +29,8 @@ class UpdateCurr {
 
     // чтобы юзеры не писали нескольлко точек
     if (symbol === '.' && currentOperand.includes('.')) return;
-    if (symbol === '0' && obj.currentNum === '') return;
+    // if (symbol === '0' && obj.currentNum === '') return; наверное удалю, надо придумать что-то для ввода 0, затем num => 0num вместо num
+
     // была операция = то в current записываем число заново, т.е 5+2=7, вводим 8 => 8, а не 87
     if (
       calculator.currentNum !== '' &&
@@ -57,30 +60,22 @@ class ClearCurr {
 }
 
 const calculator = new Calculator();
-const numberBtns = document.querySelectorAll('[data-num]');
-const operationBtns = document.querySelectorAll('[data-operation]');
-const equalBtn = document.querySelector('[data-equal]');
-const clearAllBtn = document.querySelector('[data-clear-all]');
-const clearEntryBtn = document.querySelector('[data-clear-entry]');
-const undoBtn = document.querySelector('[data-undo]'); // !!!!!!!!!!
-
 const btnsBlock = document.querySelector('.btns');
 
-numberBtns.forEach((numberBtn) => {
-  numberBtn.addEventListener('click', () => {
-    new UpdateCurr().execute(numberBtn.textContent, calculator);
+btnsBlock.addEventListener('click', (e) => {
+  if (e.target.hasAttribute('data-num')) {
+    new UpdateCurr().execute(e.target.textContent, calculator);
     new UpdateScreen().execute(calculator);
-  });
-});
+  }
 
-operationBtns.forEach((operationBtn) => {
-  operationBtn.addEventListener('click', () => {
+  if (e.target.hasAttribute('data-operation')) {
+    if (isNaN(document.querySelector('.record-data-block').textContent)) return;
     if (calculator.operation.execute !== undefined) {
       calculator.executeCommand(calculator.operation);
 
       calculator.operation = new OperationFactory(
-        operationBtn.getAttribute('data-value')
-      ).create(calculator.prevNum, operationBtn.id);
+        e.target.getAttribute('data-value')
+      ).create(calculator.prevNum, e.target.id);
 
       new ClearCurr().execute(calculator);
       new UpdateScreen().execute(calculator);
@@ -91,47 +86,49 @@ operationBtns.forEach((operationBtn) => {
     new AppendPrev().execute(calculator);
 
     calculator.operation = new OperationFactory(
-      operationBtn.getAttribute('data-value')
-    ).create(calculator.prevNum, operationBtn.id);
+      e.target.getAttribute('data-value')
+    ).create(calculator.prevNum, e.target.id);
 
     new ClearCurr().execute(calculator);
     new UpdateScreen().execute(calculator);
-  });
-});
+  }
 
-equalBtn.addEventListener('click', () => {
-  calculator.executeCommand(calculator.operation);
-  new UpdateScreen().execute(calculator);
-});
+  if (e.target.hasAttribute('data-equal')) {
+    console.log('data-equal');
+    if (calculator.operation.execute === undefined) return; // enter '5=' =>5
 
-clearAllBtn.addEventListener('click', () => {
-  new Clear().execute(calculator);
-  new UpdateScreen().execute(calculator);
-});
+    calculator.executeCommand(calculator.operation);
+    new UpdateScreen().execute(calculator);
+  }
 
-clearEntryBtn.addEventListener('click', () => {
-  new ClearEntry().execute(calculator);
-  new UpdateScreen().execute(calculator);
-});
+  if (e.target.hasAttribute('data-clear-all')) {
+    new ClearAll().execute(calculator);
+    new UpdateScreen().execute(calculator);
+  }
+  if (e.target.hasAttribute('data-clear-entry')) {
+    new ClearEntry().execute(calculator);
+    new UpdateScreen().execute(calculator);
+  }
+  // if (e.target.hasAttribute('data-undo')) {
+  // }
 
-undoBtn.addEventListener('click', () => {
-  calculator.undoCommand(calculator.operation);
-  new UpdateScreen().execute(calculator);
-  new ClearCurr().execute(calculator);
-});
-
-btnsBlock.addEventListener('click', (e) => {
   if (e.target.hasAttribute('data-degree2')) {
-    console.log('degree-2');
     calculator.executeCommand(new Degree2());
     new UpdateScreen().execute(calculator);
   }
+
   if (e.target.hasAttribute('data-degree3')) {
-    console.log('degree-3');
     calculator.executeCommand(new Degree3());
     new UpdateScreen().execute(calculator);
   }
-  // if (e.target.classList.contains('degree-y')) {
-  //   console.log('degree-y');
-  // }
+
+  if (e.target.hasAttribute('data-root2')) {
+    calculator.executeCommand(new Root2());
+    new UpdateScreen().execute(calculator);
+  }
+
+  if (e.target.hasAttribute('data-root3')) {
+    calculator.executeCommand(new Root3());
+    new UpdateScreen().execute(calculator);
+  }
 });

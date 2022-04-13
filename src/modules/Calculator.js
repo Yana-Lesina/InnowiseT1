@@ -10,6 +10,7 @@ class Calculator {
 
   executeCommand(command) {
     this.history.push(command);
+    if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
     this.prevNum = command.execute(this.currentNum);
     this.currentNum = command.execute(this.currentNum);
     this.operation = { sign: '' };
