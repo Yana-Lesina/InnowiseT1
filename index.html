@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
+    <link rel="shortcut icon" href="icon.png" />
     <link rel="stylesheet" href="css/style.css" />
     <script defer src="./dist/main.js"></script>
   </head>
@@ -23,13 +24,13 @@
           <div data-memory-recall class="m-btn">MR</div>
         </div>
         <div class="btns">
-          <div data-degree2 class="btn">x&#178;</div>
+          <div data-degree2 class="btn" id="degree2">x&#178;</div>
           <div data-percent class="btn">%</div>
           <div data-clear-entry class="btn">CE</div>
           <div data-clear-all class="btn">C</div>
           <div data-undo class="btn orange-btn">undo</div>
 
-          <div data-degree3 class="btn">x&#179;</div>
+          <div data-degree3 class="btn" id="degree3">x&#179;</div>
           <div class="btn">!x</div>
           <div data-inverse class="btn">1/x</div>
           <div class="btn">10^x</div>
@@ -50,7 +51,7 @@
             x
           </div>
 
-          <div data-root2 class="btn">√x</div>
+          <div data-root2 class="btn" id="root2">√x</div>
           <div data-num class="btn">4</div>
           <div data-num class="btn">5</div>
           <div data-num class="btn">6</div>
@@ -63,7 +64,7 @@
             -
           </div>
 
-          <div data-root3 class="btn">∛x</div>
+          <div data-root3 class="btn" id="root3">∛x</div>
           <div data-num class="btn">1</div>
           <div data-num class="btn">2</div>
           <div data-num class="btn">3</div>
@@ -74,7 +75,7 @@
           <div data-operation class="btn" id="root-y" data-value="^(1&#247;">
             y&#8730;x
           </div>
-          <div class="btn">&#177;</div>
+          <div data-plus-minus class="btn">&#177;</div>
           <div data-num class="btn">0</div>
           <div data-num class="btn">.</div>
           <div data-equal class="btn orange-btn" id="equal">=</div>

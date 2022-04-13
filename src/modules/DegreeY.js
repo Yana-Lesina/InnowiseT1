@@ -9,9 +9,5 @@ class DegreeY extends Command {
   execute(currNum) {
     return this.num ** currNum;
   }
-
-  // undo(currNum) {
-  //   return +currNum - +this.num;
-  // }
 }
 export default DegreeY;

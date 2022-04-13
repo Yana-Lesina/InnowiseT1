@@ -11,21 +11,18 @@ class Calculator {
   }
 
   executeCommand(command) {
-    this.history.push(command);
     if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
+    if (
+      command.execute(this.currentNum) === Infinity ||
+      isNaN(command.execute(this.currentNum))
+    )
+      return false; //failed operation
+
     this.prevNum = command.execute(this.currentNum);
     this.currentNum = command.execute(this.currentNum);
     this.operation = { sign: '' };
-    return this;
+    return true; // successful operation
   }
-
-  // undoCommand() {
-  //   const command = this.history.pop(); // потому что pop возвращает удалённое значение
-  //   this.currentNum = command.undo(this.prevNum);
-  //   this.prevNum = command.undo(this.prevNum);
-  //   this.operation = { sign: '' };
-  //   return this;
-  // }
 }
 
 export default Calculator;

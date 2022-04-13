@@ -7,5 +7,4 @@ class Root2 extends Command {
     return currNum ** (1 / 2);
   }
 }
-
 export default Root2;

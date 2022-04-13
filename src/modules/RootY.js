@@ -11,5 +11,4 @@ class RootY extends Command {
     return this.num ** (1 / currNum);
   }
 }
-
 export default RootY;

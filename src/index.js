@@ -1,24 +1,18 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-classes-per-file */
-// import {
-//   AppendPrev,
-//   ClearCurr,
-//   UpdateCurr,
-//   UpdateScreen
-// } from './modules/instruments';
 
 import Calculator from './modules/Calculator';
+import PerformOperation from './modules/PerformOperation';
 import OperationFactory from './modules/OperationFactory';
+// import Degree2 from './modules/Degree2';
+// import Degree3 from './modules/Degree3';
+// import Root2 from './modules/Root2';
+// import Root3 from './modules/Root3';
+
 import ClearAll from './modules/ClearAll';
 import ClearEntry from './modules/ClearEntry';
-// import Memory from './modules';
+import UpdateScreen from './modules/UpdateScreen';
 
-import Degree2 from './modules/Degree2';
-import Degree3 from './modules/Degree3';
-import Root2 from './modules/Root2';
-import Root3 from './modules/Root3';
-
-// console.log(new UpdateCurr());
 class AppendPrev {
   execute(obj) {
     obj.prevNum = obj.currentNum;
@@ -53,23 +47,38 @@ class UpdateCurr {
 
     obj.currentNum += symbol;
 
-    // чтобы вместо ввода 0 num => 0num было num
-    // ситуация с вводом .7 обрабатывается правильно
+    // чтобы вместо ввода 0 num => 0num было num // ситуация с вводом .7 обрабатывается правильно
     if (symbol !== '.') obj.currentNum = Number(obj.currentNum);
   }
 }
 
-class UpdateScreen {
-  constructor() {
-    this.currentOperand = document.querySelector('.record-data-block');
-    this.prevOperand = document.querySelector('.prev-data-block');
-  }
+// class UpdateScreen {
+//   constructor() {
+//     this.currentOperand = document.querySelector('.record-data-block');
+//     this.prevOperand = document.querySelector('.prev-data-block');
+//   }
 
-  execute(obj) {
-    this.currentOperand.textContent = obj.currentNum;
-    this.prevOperand.textContent = `${obj.prevNum} ${obj.operation.sign}`;
-  }
-}
+//   execute(obj) {
+//     this.currentOperand.textContent = obj.currentNum;
+//     this.prevOperand.textContent = `${obj.prevNum} ${obj.operation.sign}`;
+//   }
+// }
+
+// class PerformOperation {
+//   start(operation) {
+//     const recordBlock = document.querySelector('.record-data-block');
+
+//     if (isNaN(recordBlock.textContent)) return;
+
+//     if (calculator.executeCommand(operation)) {
+//       new UpdateScreen().execute(calculator);
+//     } else {
+//       recordBlock.textContent = 'invalid operation';
+//       new ClearAll().execute(calculator);
+//       console.log(calculator);
+//     }
+//   }
+// }
 
 const calculator = new Calculator();
 const memoryBtnsBlock = document.querySelector('.m-btns');
@@ -128,10 +137,49 @@ btnsBlock.addEventListener('click', (e) => {
   }
 
   if (e.target.hasAttribute('data-equal')) {
-    console.log('data-equal');
-    if (calculator.operation.execute === undefined) return; // enter '5=' =>5
+    if (calculator.operation.execute === undefined) return; // '5=' =>5 а не error
+    new PerformOperation(calculator).start(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  }
 
-    calculator.executeCommand(calculator.operation);
+  // =======================================================
+  if (e.target.hasAttribute('data-degree2')) {
+    calculator.operation = new OperationFactory().create(
+      calculator.currentNum,
+      e.target.id
+    );
+    new PerformOperation(calculator).start();
+  }
+
+  if (e.target.hasAttribute('data-degree3')) {
+    calculator.operation = new OperationFactory().create(
+      calculator.currentNum,
+      e.target.id
+    );
+    new PerformOperation(calculator).start();
+  }
+
+  if (e.target.hasAttribute('data-root2')) {
+    calculator.operation = new OperationFactory().create(
+      calculator.currentNum,
+      e.target.id
+    );
+    new PerformOperation(calculator).start();
+  }
+
+  if (e.target.hasAttribute('data-root3')) {
+    calculator.operation = new OperationFactory().create(
+      calculator.currentNum,
+      e.target.id
+    );
+    new PerformOperation(calculator).start();
+  }
+
+  // ======================================================
+  if (e.target.hasAttribute('data-plus-minus')) {
+    const recordBlock = document.querySelector('.record-data-block');
+    if (isNaN(recordBlock.textContent)) return;
+    calculator.currentNum = -Number(recordBlock.textContent);
+
     new UpdateScreen().execute(calculator);
   }
 
@@ -139,28 +187,9 @@ btnsBlock.addEventListener('click', (e) => {
     new ClearAll().execute(calculator);
     new UpdateScreen().execute(calculator);
   }
+
   if (e.target.hasAttribute('data-clear-entry')) {
     new ClearEntry().execute(calculator);
-    new UpdateScreen().execute(calculator);
-  }
-
-  if (e.target.hasAttribute('data-degree2')) {
-    calculator.executeCommand(new Degree2());
-    new UpdateScreen().execute(calculator);
-  }
-
-  if (e.target.hasAttribute('data-degree3')) {
-    calculator.executeCommand(new Degree3());
-    new UpdateScreen().execute(calculator);
-  }
-
-  if (e.target.hasAttribute('data-root2')) {
-    calculator.executeCommand(new Root2());
-    new UpdateScreen().execute(calculator);
-  }
-
-  if (e.target.hasAttribute('data-root3')) {
-    calculator.executeCommand(new Root3());
     new UpdateScreen().execute(calculator);
   }
 });

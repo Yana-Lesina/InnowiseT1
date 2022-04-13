@@ -1,10 +1,14 @@
 /* eslint-disable linebreak-style */
 import { Add, Substract, Mult, Divide } from './simpleCommands';
+import Degree2 from './Degree2';
+import Degree3 from './Degree3';
 import DegreeY from './DegreeY';
+import Root2 from './Root2';
+import Root3 from './Root3';
 import RootY from './RootY';
 
 class OperationFactory {
-  constructor(sign) {
+  constructor(sign = '') {
     this.sign = sign;
   }
 
@@ -15,6 +19,10 @@ class OperationFactory {
     divide: Divide,
     'degree-y': DegreeY,
     'root-y': RootY,
+    degree2: Degree2,
+    degree3: Degree3,
+    root2: Root2,
+    root3: Root3,
   };
 
   create(num, operType) {
