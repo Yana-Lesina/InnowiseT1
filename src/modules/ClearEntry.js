@@ -1,6 +1,6 @@
 class ClearEntry {
   execute(calc) {
-    calc.currentNum = '';
+    calc.currentNum = 0;
   }
 }
 export default ClearEntry;

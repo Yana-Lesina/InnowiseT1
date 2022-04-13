@@ -1,9 +1,11 @@
 /* eslint-disable linebreak-style */
+import Memory from './Memory';
+
 class Calculator {
   constructor() {
-    this.currentNum = '';
+    this.currentNum = 0;
     this.prevNum = '';
-    this.memoryNum = '';
+    this.memory = new Memory();
     this.operation = { sign: '' };
     this.history = [];
   }
@@ -17,13 +19,13 @@ class Calculator {
     return this;
   }
 
-  undoCommand() {
-    const command = this.history.pop(); // потому что pop возвращает удалённое значение
-    this.currentNum = command.undo(this.prevNum);
-    this.prevNum = command.undo(this.prevNum);
-    this.operation = { sign: '' };
-    return this;
-  }
+  // undoCommand() {
+  //   const command = this.history.pop(); // потому что pop возвращает удалённое значение
+  //   this.currentNum = command.undo(this.prevNum);
+  //   this.prevNum = command.undo(this.prevNum);
+  //   this.operation = { sign: '' };
+  //   return this;
+  // }
 }
 
 export default Calculator;

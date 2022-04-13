@@ -31,6 +31,7 @@ body {
 .calc-screen {
   margin: 50px auto 0px;
   width: 262px;
+  height: 85px;
   text-align: right;
 }
 
@@ -85,4 +86,8 @@ body {
 }
 .btn:active {
   filter: brightness(95%);
+}
+
+.orange-btn {
+  background-color: #e6c563;
 }

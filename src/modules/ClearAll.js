@@ -1,6 +1,6 @@
 class ClearAll {
   execute(calc) {
-    calc.currentNum = '';
+    calc.currentNum = 0;
     calc.prevNum = '';
     calc.operation = { sign: '' };
   }
