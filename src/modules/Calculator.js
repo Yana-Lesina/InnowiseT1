@@ -14,7 +14,7 @@ class Calculator {
     if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
     if (
       command.execute(this.currentNum) === Infinity ||
-      isNaN(command.execute(this.currentNum))
+      Number.isNaN(+command.execute(this.currentNum))
     )
       return false; // failed operation
 

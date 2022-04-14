@@ -1,20 +1,21 @@
-import UpdateScreen from './UpdateScreen';
-import ClearAll from './ClearAll';
+import UpdateScreen from './instruments/UpdateScreen';
+import ClearAll from './instruments/ClearAll';
 
 class PerformOperation {
   constructor(calculator) {
     this.calculator = calculator;
   }
+
   start() {
     const recordBlock = document.querySelector('.record-data-block');
 
-    if (isNaN(recordBlock.textContent)) return;
+    if (Number.isNaN(+recordBlock.textContent)) return;
 
     if (this.calculator.executeCommand(this.calculator.operation)) {
-      new UpdateScreen().execute(this.calculator);
+      new UpdateScreen(this.calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
-      new ClearAll().execute(this.calculator);
+      new ClearAll(this.calculator).execute();
     }
   }
 }

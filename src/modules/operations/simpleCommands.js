@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable max-classes-per-file */
 
 import Command from './Command';

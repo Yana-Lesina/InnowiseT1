@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import Command from './Command';
 
 class Root3 extends Command {

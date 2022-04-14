@@ -1,13 +1,13 @@
-import { Add, Substract, Mult, Divide } from './simpleCommands';
-import Degree2 from './Degree2';
-import Degree3 from './Degree3';
-import DegreeY from './DegreeY';
-import Root2 from './Root2';
-import Root3 from './Root3';
-import RootY from './RootY';
-import Fact from './Fact';
-import Inverse from './Inverse';
-import TenDegreeX from './TenDegreeX';
+import { Add, Substract, Mult, Divide } from './operations/simpleCommands';
+import Degree2 from './operations/Degree2';
+import Degree3 from './operations/Degree3';
+import DegreeY from './operations/DegreeY';
+import Root2 from './operations/Root2';
+import Root3 from './operations/Root3';
+import RootY from './operations/RootY';
+import Fact from './operations/Fact';
+import Inverse from './operations/Inverse';
+import TenDegreeX from './operations/TenDegreeX';
 
 class OperationFactory {
   constructor(sign = '') {
