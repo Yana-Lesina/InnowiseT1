@@ -1,84 +1,15 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable max-classes-per-file */
 
 import Calculator from './modules/Calculator';
 import PerformOperation from './modules/PerformOperation';
 import OperationFactory from './modules/OperationFactory';
-// import Degree2 from './modules/Degree2';
-// import Degree3 from './modules/Degree3';
-// import Root2 from './modules/Root2';
-// import Root3 from './modules/Root3';
 
 import ClearAll from './modules/ClearAll';
 import ClearEntry from './modules/ClearEntry';
 import UpdateScreen from './modules/UpdateScreen';
-
-class AppendPrev {
-  execute(obj) {
-    obj.prevNum = obj.currentNum;
-    obj.currentNum = '';
-  }
-}
-
-class ClearCurr {
-  execute(obj) {
-    obj.currentNum = '';
-  }
-}
-
-class UpdateCurr {
-  execute(symbol, obj) {
-    const currentOperand =
-      document.querySelector('.record-data-block').textContent;
-
-    // чтобы юзеры не писали нескольлко точек
-    if (symbol === '.' && currentOperand.includes('.')) return;
-
-    // была операция = то в current записываем число заново, т.е 5+2=7, вводим 8 => 8, а не 87
-    if (
-      calculator.currentNum !== '' &&
-      calculator.prevNum !== '' &&
-      calculator.operation.execute === undefined
-    ) {
-      obj.prevNum = '';
-      obj.currentNum = symbol;
-      return;
-    }
-
-    obj.currentNum += symbol;
-
-    // чтобы вместо ввода 0 num => 0num было num // ситуация с вводом .7 обрабатывается правильно
-    if (symbol !== '.') obj.currentNum = Number(obj.currentNum);
-  }
-}
-
-// class UpdateScreen {
-//   constructor() {
-//     this.currentOperand = document.querySelector('.record-data-block');
-//     this.prevOperand = document.querySelector('.prev-data-block');
-//   }
-
-//   execute(obj) {
-//     this.currentOperand.textContent = obj.currentNum;
-//     this.prevOperand.textContent = `${obj.prevNum} ${obj.operation.sign}`;
-//   }
-// }
-
-// class PerformOperation {
-//   start(operation) {
-//     const recordBlock = document.querySelector('.record-data-block');
-
-//     if (isNaN(recordBlock.textContent)) return;
-
-//     if (calculator.executeCommand(operation)) {
-//       new UpdateScreen().execute(calculator);
-//     } else {
-//       recordBlock.textContent = 'invalid operation';
-//       new ClearAll().execute(calculator);
-//       console.log(calculator);
-//     }
-//   }
-// }
+import AppendPrev from './modules/AppendPrev';
+import ClearCurr from './modules/ClearCurr';
+import UpdateCurr from './modules/UpdateCurr';
 
 const calculator = new Calculator();
 const memoryBtnsBlock = document.querySelector('.m-btns');
@@ -111,8 +42,21 @@ btnsBlock.addEventListener('click', (e) => {
     new UpdateScreen().execute(calculator);
   }
 
-  if (e.target.hasAttribute('data-operation')) {
-    if (isNaN(document.querySelector('.record-data-block').textContent)) return;
+  // single-operator operations=======================================================
+
+  if (e.target.hasAttribute('data-single-oper')) {
+    calculator.operation = new OperationFactory().create(
+      calculator.currentNum,
+      e.target.id
+    );
+    new PerformOperation(calculator).start();
+  }
+  // pair-operator operations=======================================================
+  if (e.target.hasAttribute('data-pair-oper')) {
+    if (Number.isNaN(+document.querySelector('.record-data-block').textContent))
+      return;
+
+    // if there's operation to execute
     if (calculator.operation.execute !== undefined) {
       calculator.executeCommand(calculator.operation);
 
@@ -126,6 +70,7 @@ btnsBlock.addEventListener('click', (e) => {
       return;
     }
 
+    // if there's NO operation to execute
     new AppendPrev().execute(calculator);
 
     calculator.operation = new OperationFactory(
@@ -138,43 +83,17 @@ btnsBlock.addEventListener('click', (e) => {
 
   if (e.target.hasAttribute('data-equal')) {
     if (calculator.operation.execute === undefined) return; // '5=' =>5 а не error
-    new PerformOperation(calculator).start(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  }
-
-  // =======================================================
-  if (e.target.hasAttribute('data-degree2')) {
-    calculator.operation = new OperationFactory().create(
-      calculator.currentNum,
-      e.target.id
-    );
     new PerformOperation(calculator).start();
   }
 
-  if (e.target.hasAttribute('data-degree3')) {
-    calculator.operation = new OperationFactory().create(
-      calculator.currentNum,
-      e.target.id
-    );
-    new PerformOperation(calculator).start();
+  // rest specific non-automated operations======================================================
+  if (e.target.hasAttribute('data-percent')) {
+    const recordBlock = document.querySelector('.record-data-block');
+    if (isNaN(recordBlock.textContent)) return;
+    calculator.currentNum =
+      calculator.prevNum * (recordBlock.textContent / 100);
+    new UpdateScreen().execute(calculator);
   }
-
-  if (e.target.hasAttribute('data-root2')) {
-    calculator.operation = new OperationFactory().create(
-      calculator.currentNum,
-      e.target.id
-    );
-    new PerformOperation(calculator).start();
-  }
-
-  if (e.target.hasAttribute('data-root3')) {
-    calculator.operation = new OperationFactory().create(
-      calculator.currentNum,
-      e.target.id
-    );
-    new PerformOperation(calculator).start();
-  }
-
-  // ======================================================
   if (e.target.hasAttribute('data-plus-minus')) {
     const recordBlock = document.querySelector('.record-data-block');
     if (isNaN(recordBlock.textContent)) return;

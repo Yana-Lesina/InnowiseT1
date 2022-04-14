@@ -16,7 +16,7 @@ class Calculator {
       command.execute(this.currentNum) === Infinity ||
       isNaN(command.execute(this.currentNum))
     )
-      return false; //failed operation
+      return false; // failed operation
 
     this.prevNum = command.execute(this.currentNum);
     this.currentNum = command.execute(this.currentNum);
