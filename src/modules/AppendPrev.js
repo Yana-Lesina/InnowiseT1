@@ -1,7 +1,7 @@
 class AppendPrev {
-  execute(obj) {
-    obj.prevNum = obj.currentNum;
-    obj.currentNum = '';
+  execute(calc) {
+    calc.prevNum = calc.currentNum;
+    calc.currentNum = '';
   }
 }
 

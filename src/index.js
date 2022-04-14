@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 import Calculator from './modules/Calculator';
 import PerformOperation from './modules/PerformOperation';
 import OperationFactory from './modules/OperationFactory';

@@ -1,6 +1,6 @@
 class ClearCurr {
-  execute(obj) {
-    obj.currentNum = '';
+  execute(calc) {
+    calc.currentNum = '';
   }
 }
 export default ClearCurr;

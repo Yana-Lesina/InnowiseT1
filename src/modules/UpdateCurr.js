@@ -1,5 +1,5 @@
 class UpdateCurr {
-  execute(symbol, obj) {
+  execute(symbol, calc) {
     const currentOperand =
       document.querySelector('.record-data-block').textContent;
 
@@ -8,20 +8,20 @@ class UpdateCurr {
 
     // if there's = we renew currentBlock ( 5+2=7, then if input 8 => 8, not 87)
     if (
-      calculator.currentNum !== '' &&
-      calculator.prevNum !== '' &&
-      calculator.operation.execute === undefined
+      calc.currentNum !== '' &&
+      calc.prevNum !== '' &&
+      calc.operation.execute === undefined
     ) {
-      obj.prevNum = '';
-      obj.currentNum = symbol;
+      calc.prevNum = '';
+      calc.currentNum = symbol;
       return;
     }
 
-    obj.currentNum += symbol;
+    calc.currentNum += symbol;
 
     // instead of input 0 num => 0num we enter num
     // situation with input .7 processed correctly
-    if (symbol !== '.') obj.currentNum = Number(obj.currentNum);
+    if (symbol !== '.') calc.currentNum = Number(calc.currentNum);
   }
 }
 export default UpdateCurr;
