@@ -2,10 +2,11 @@
 import Command from './Command';
 
 class Root3 extends Command {
-  execute(currNum) {
-    if (+currNum === 1) return 1;
+  execute() {
+    const [, right] = this.operandsArray;
+    if (+right === 1) return 1;
 
-    return currNum ** (1 / 3);
+    return right ** (1 / 3);
   }
 }
 

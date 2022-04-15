@@ -1,13 +1,14 @@
 import Command from './Command';
 
 class DegreeY extends Command {
-  constructor(num) {
-    super();
-    this.num = num;
-  }
+  // constructor(num) {
+  //   super();
+  //   this.num = num;
+  // }
 
-  execute(currNum) {
-    return this.num ** currNum;
+  execute() {
+    const [left, right] = this.operandsArray;
+    return left ** right;
   }
 }
 export default DegreeY;

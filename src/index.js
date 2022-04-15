@@ -43,8 +43,11 @@ btnsBlock.addEventListener('click', e => {
   // single-operator operations=======================================================
 
   if (e.target.hasAttribute('data-single-oper')) {
+    calculator.operation.id = e.target.id;
+    calculator.operation.sign = e.target.getAttribute('data-value');
+
     calculator.operation = new OperationFactory().create(
-      calculator.currentNum,
+      [calculator.prevNum, calculator.currentNum],
       e.target.id,
     );
     new PerformOperation(calculator).start();
@@ -55,12 +58,18 @@ btnsBlock.addEventListener('click', e => {
       return;
 
     // if there's operation to execute
-    if (calculator.operation.execute !== undefined) {
-      calculator.executeCommand(calculator.operation);
-
+    if (calculator.operation.id !== '') {
       calculator.operation = new OperationFactory(
         e.target.getAttribute('data-value'),
-      ).create(calculator.prevNum, e.target.id);
+      ).create(
+        [calculator.prevNum, calculator.currentNum],
+        calculator.operation.id,
+      );
+
+      calculator.executeCommand(calculator.operation);
+
+      calculator.operation.id = e.target.id;
+      calculator.operation.sign = e.target.getAttribute('data-value');
 
       new ClearCurr(calculator).execute();
       new UpdateScreen(calculator).execute();
@@ -71,16 +80,27 @@ btnsBlock.addEventListener('click', e => {
     // if there's NO operation to execute
     new AppendPrev(calculator).execute();
 
-    calculator.operation = new OperationFactory(
-      e.target.getAttribute('data-value'),
-    ).create(calculator.prevNum, e.target.id);
+    // calculator.operation = new OperationFactory(
+    //   e.target.getAttribute('data-value'),
+    // ).create([calculator.prevNum, calculator.currentNum], e.target.id);
+    calculator.operation.id = e.target.id;
+    calculator.operation.sign = e.target.getAttribute('data-value');
 
     new ClearCurr(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
   if (e.target.hasAttribute('data-equal')) {
-    if (calculator.operation.execute === undefined) return; // '5=' =>5 а не error
+    if (calculator.operation.id === '') return; // '5=' =>5 а не error
+
+    calculator.operation = new OperationFactory(
+      e.target.getAttribute('data-value'),
+    ).create(
+      [calculator.prevNum, calculator.currentNum],
+      calculator.operation.id,
+    );
+
+    // calculator.executeCommand(calculator.operation);
     new PerformOperation(calculator).start();
   }
 

@@ -2,8 +2,9 @@
 import Command from './Command';
 
 class Degree3 extends Command {
-  execute(currNum) {
-    return currNum * currNum * currNum;
+  execute() {
+    const [, right] = this.operandsArray;
+    return right * right * right;
   }
 }
 export default Degree3;

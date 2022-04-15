@@ -4,7 +4,7 @@ class ClearAll extends Instrument {
   execute() {
     this.calc.currentNum = 0;
     this.calc.prevNum = '';
-    this.calc.operation = { sign: '' };
+    this.calc.operation = { sign: '', id: '' };
   }
 }
 export default ClearAll;

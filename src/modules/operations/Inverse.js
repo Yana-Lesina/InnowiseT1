@@ -2,8 +2,9 @@
 import Command from './Command';
 
 class Inverse extends Command {
-  execute(currNum) {
-    return 1 / currNum;
+  execute() {
+    const [, right] = this.operandsArray;
+    return 1 / right;
   }
 }
 

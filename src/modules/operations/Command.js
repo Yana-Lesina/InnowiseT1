@@ -1,14 +1,14 @@
 class Command {
-  constructor(num) {
-    this.num = num;
+  constructor(operandsArray) {
+    this.operandsArray = operandsArray;
   }
 
   execute() {
-    return +this.num;
+    throw new Error('Execute method is not implemented');
   }
 
   undo() {
-    return +this.num;
+    throw new Error('Undo method is not implemented');
   }
 }
 

@@ -3,43 +3,47 @@
 import Command from './Command';
 
 class Add extends Command {
-  execute(currNum) {
-    return +this.num + +currNum;
+  execute() {
+    const [left, right] = this.operandsArray;
+    return +left + +right;
   }
 
-  undo(currNum) {
-    return +currNum - +this.num;
-  }
+  // undo() {
+  //   return +currNum - +this.num;
+  // }
 }
 
 class Substract extends Command {
-  execute(currNum) {
-    return +this.num - +currNum;
+  execute() {
+    const [left, right] = this.operandsArray;
+    return +left - +right;
   }
 
-  undo(currNum) {
-    return +currNum + +this.num;
-  }
+  // undo() {
+  //   return +currNum + +this.num;
+  // }
 }
 
 class Mult extends Command {
-  execute(currNum) {
-    return +this.num * +currNum;
+  execute() {
+    const [left, right] = this.operandsArray;
+    return +left * +right;
   }
 
-  undo(currNum) {
-    return +currNum / +this.num;
-  }
+  // undo() {
+  //   return +currNum / +this.num;
+  // }
 }
 
 class Divide extends Command {
-  execute(currNum) {
-    return +this.num / +currNum;
+  execute() {
+    const [left, right] = this.operandsArray;
+    return +left / +right;
   }
 
-  undo(currNum) {
-    return +currNum * +this.num;
-  }
+  // undo() {
+  //   return +currNum * +this.num;
+  // }
 }
 
 export { Add, Substract, Mult, Divide };

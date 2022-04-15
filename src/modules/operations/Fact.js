@@ -1,10 +1,15 @@
 import Command from './Command';
 
 class Fact extends Command {
-  execute(num) {
-    if (+num < 0) return 'invalid input';
+  count(num) {
+    return num !== 1 ? num * this.count(num - 1) : num;
+  }
 
-    return num !== 1 ? num * this.execute(num - 1) : num;
+  execute() {
+    const [, right] = this.operandsArray;
+    if (+right < 0) return 'invalid input';
+
+    return this.count(right);
   }
 }
 export default Fact;
