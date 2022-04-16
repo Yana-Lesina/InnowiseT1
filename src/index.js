@@ -40,7 +40,7 @@ btnsBlock.addEventListener('click', e => {
     new UpdateScreen(calculator).execute();
   }
 
-  // single-operator operations=======================================================
+  // single-operator operations===================================================
 
   if (e.target.hasAttribute('data-single-oper')) {
     calculator.operation.id = e.target.id;
@@ -48,11 +48,11 @@ btnsBlock.addEventListener('click', e => {
 
     calculator.operation = new OperationFactory().create(
       [calculator.prevNum, calculator.currentNum],
-      e.target.id,
+      calculator.operation.id,
     );
     new PerformOperation(calculator).start();
   }
-  // pair-operator operations=======================================================
+  // pair-operator operations===================================================
   if (e.target.hasAttribute('data-pair-oper')) {
     if (Number.isNaN(+document.querySelector('.record-data-block').textContent))
       return;
@@ -80,9 +80,6 @@ btnsBlock.addEventListener('click', e => {
     // if there's NO operation to execute
     new AppendPrev(calculator).execute();
 
-    // calculator.operation = new OperationFactory(
-    //   e.target.getAttribute('data-value'),
-    // ).create([calculator.prevNum, calculator.currentNum], e.target.id);
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
 
@@ -100,11 +97,10 @@ btnsBlock.addEventListener('click', e => {
       calculator.operation.id,
     );
 
-    // calculator.executeCommand(calculator.operation);
     new PerformOperation(calculator).start();
   }
 
-  // rest specific non-automated operations======================================================
+  // rest specific non-automated operations===================================================
   if (e.target.hasAttribute('data-percent')) {
     const recordBlock = document.querySelector('.record-data-block');
     if (Number.isNaN(+recordBlock.textContent)) return;
