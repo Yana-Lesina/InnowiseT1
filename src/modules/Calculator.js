@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import Memory from './Memory';
 
 class Calculator {
@@ -15,8 +14,8 @@ class Calculator {
     if (command.execute() === Infinity || Number.isNaN(+command.execute()))
       return false; // failed operation
 
-    this.prevNum = command.execute();
-    this.currentNum = command.execute();
+    this.prevNum = parseFloat(command.execute().toFixed(10));
+    this.currentNum = parseFloat(command.execute().toFixed(10));
     this.operation = { sign: '', id: '' };
     return true; // successful operation
   }
