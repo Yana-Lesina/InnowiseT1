@@ -1,5 +1,4 @@
 import Calculator from './modules/Calculator';
-import PerformOperation from './modules/PerformOperation';
 import OperationFactory from './modules/OperationFactory';
 
 import changeTheme from './modules/changeTheme';
@@ -53,7 +52,18 @@ btnsBlock.addEventListener('click', e => {
       [calculator.prevNum, calculator.currentNum],
       calculator.operation.id,
     );
-    new PerformOperation(calculator).start();
+
+    // ==========================================
+    const recordBlock = document.querySelector('.record-data-block');
+
+    if (Number.isNaN(Number(recordBlock.textContent))) return;
+
+    if (calculator.executeCommand(calculator.operation)) {
+      new UpdateScreen(calculator).execute();
+    } else {
+      recordBlock.textContent = 'invalid operation';
+      new ClearAll(calculator).execute();
+    }
   }
   // pair-operator operations===================================================
   if (e.target.hasAttribute('data-pair-oper')) {
@@ -93,14 +103,22 @@ btnsBlock.addEventListener('click', e => {
   if (e.target.hasAttribute('data-equal')) {
     if (calculator.operation.id === '') return; // '5=' =>5 а не error
 
-    calculator.operation = new OperationFactory(
-      e.target.getAttribute('data-value'),
-    ).create(
+    calculator.operation = new OperationFactory().create(
       [calculator.prevNum, calculator.currentNum],
       calculator.operation.id,
     );
 
-    new PerformOperation(calculator).start();
+    // ==========================================
+    const recordBlock = document.querySelector('.record-data-block');
+
+    if (Number.isNaN(Number(recordBlock.textContent))) return;
+
+    if (calculator.executeCommand(calculator.operation)) {
+      new UpdateScreen(calculator).execute();
+    } else {
+      recordBlock.textContent = 'invalid operation';
+      new ClearAll(calculator).execute();
+    }
   }
 
   // rest specific non-automated operations===================================================
