@@ -13,5 +13,10 @@ class Fact extends Command {
     }
     return this.count(right);
   }
+
+  undo() {
+    const [, right] = this.operandsArray;
+    return right;
+  }
 }
 export default Fact;

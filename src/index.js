@@ -146,4 +146,10 @@ btnsBlock.addEventListener('click', e => {
     new ClearEntry(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
+
+  if (e.target.hasAttribute('data-undo')) {
+    console.log(calculator);
+    calculator.undoCommand();
+    new UpdateScreen(calculator).execute();
+  }
 });

@@ -8,5 +8,10 @@ class Root2 extends Command {
 
     return right ** (1 / 2);
   }
+
+  undo() {
+    const [, right] = this.operandsArray;
+    return right;
+  }
 }
 export default Root2;

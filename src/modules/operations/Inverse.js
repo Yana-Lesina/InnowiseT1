@@ -6,6 +6,11 @@ class Inverse extends Command {
     const [, right] = this.operandsArray;
     return 1 / right;
   }
+
+  undo() {
+    const [, right] = this.operandsArray;
+    return right;
+  }
 }
 
 export default Inverse;

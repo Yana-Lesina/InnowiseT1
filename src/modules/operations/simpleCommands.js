@@ -8,9 +8,10 @@ class Add extends Command {
     return +left + +right;
   }
 
-  // undo() {
-  //   return +currNum - +this.num;
-  // }
+  undo() {
+    const [left] = this.operandsArray;
+    return left;
+  }
 }
 
 class Substract extends Command {
@@ -19,9 +20,10 @@ class Substract extends Command {
     return +left - +right;
   }
 
-  // undo() {
-  //   return +currNum + +this.num;
-  // }
+  undo() {
+    const [left] = this.operandsArray;
+    return left;
+  }
 }
 
 class Mult extends Command {
@@ -30,9 +32,10 @@ class Mult extends Command {
     return +left * +right;
   }
 
-  // undo() {
-  //   return +currNum / +this.num;
-  // }
+  undo() {
+    const [left] = this.operandsArray;
+    return left;
+  }
 }
 
 class Divide extends Command {
@@ -41,9 +44,10 @@ class Divide extends Command {
     return +left / +right;
   }
 
-  // undo() {
-  //   return +currNum * +this.num;
-  // }
+  undo() {
+    const [left] = this.operandsArray;
+    return left;
+  }
 }
 
 export { Add, Substract, Mult, Divide };

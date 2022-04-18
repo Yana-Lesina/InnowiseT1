@@ -5,5 +5,10 @@ class Degree2 extends Command {
     const [, right] = this.operandsArray;
     return right * right;
   }
+
+  undo() {
+    const [, right] = this.operandsArray;
+    return right;
+  }
 }
 export default Degree2;

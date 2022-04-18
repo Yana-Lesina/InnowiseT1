@@ -6,6 +6,11 @@ class TenDegreeX extends Command {
     const [, right] = this.operandsArray;
     return 10 ** right;
   }
+
+  undo() {
+    const [, right] = this.operandsArray;
+    return right;
+  }
 }
 
 export default TenDegreeX;
