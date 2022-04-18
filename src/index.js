@@ -2,6 +2,8 @@ import Calculator from './modules/Calculator';
 import PerformOperation from './modules/PerformOperation';
 import OperationFactory from './modules/OperationFactory';
 
+import changeTheme from './modules/changeTheme';
+
 import ClearAll from './modules/instruments/ClearAll';
 import ClearEntry from './modules/instruments/ClearEntry';
 import UpdateScreen from './modules/instruments/UpdateScreen';
@@ -12,6 +14,8 @@ import UpdateCurr from './modules/instruments/UpdateCurr';
 const calculator = new Calculator();
 const memoryBtnsBlock = document.querySelector('.m-btns');
 const btnsBlock = document.querySelector('.btns');
+
+changeTheme();
 
 memoryBtnsBlock.addEventListener('click', e => {
   const recordBlock = document.querySelector('.record-data-block');

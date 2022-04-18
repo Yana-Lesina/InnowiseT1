@@ -10,10 +10,10 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #a2a1a1;
   margin: 0;
   padding: 0;
 }
+
 .calc {
   margin: 50px auto;
   align-items: center;
@@ -70,10 +70,10 @@ body {
   justify-items: center;
 }
 
-.btn {
+.btn-num {
   width: 50px;
   height: 50px;
-  background-color: #a6a6a6;
+  /* background-color: #a6a6a6; */
   line-height: 50px;
   border-radius: 3%;
   text-align: center;
@@ -88,6 +88,35 @@ body {
   filter: brightness(95%);
 }
 
-.orange-btn {
+.theme-btn {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+
+  border-radius: 50%;
+}
+.theme-img {
+  height: 80%;
+  width: 80%;
+  display: block;
+  margin: 5px auto;
+}
+
+/* some buttons & background */
+.day-theme-gray {
+  background-color: #a2a1a1;
+}
+.day-theme-orange {
   background-color: #e6c563;
+}
+
+/* right-sided buttons & theme-btn*/
+.night-theme-gray {
+  background-color: #48455b;
+}
+.night-theme-blue {
+  background-color: #694c97;
 }
