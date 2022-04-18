@@ -41,7 +41,6 @@ btnsBlock.addEventListener('click', e => {
   }
 
   // single-operator operations===================================================
-
   if (e.target.hasAttribute('data-single-oper')) {
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');

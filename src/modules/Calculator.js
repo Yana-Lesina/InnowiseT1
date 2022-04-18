@@ -11,11 +11,12 @@ class Calculator {
 
   executeCommand(command) {
     if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
-    if (command.execute() === Infinity || Number.isNaN(+command.execute()))
-      return false; // failed operation
 
-    this.prevNum = parseFloat(command.execute().toFixed(10));
-    this.currentNum = parseFloat(command.execute().toFixed(10));
+    const result = command.execute();
+    if (result === Infinity || Number.isNaN(+result)) return false; // failed operation
+
+    this.prevNum = parseFloat(result.toFixed(10));
+    this.currentNum = parseFloat(result.toFixed(10));
     this.operation = { sign: '', id: '' };
     return true; // successful operation
   }
