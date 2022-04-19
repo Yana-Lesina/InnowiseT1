@@ -1,3 +1,4 @@
+import './css/style.css';
 import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
 
