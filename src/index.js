@@ -19,6 +19,9 @@ changeTheme();
 memoryBtnsBlock.addEventListener('click', e => {
   const recordBlock = document.querySelector('.record-data-block');
   const memAlarmBlock = document.querySelector('.mem-data-block');
+
+  if (Number.isNaN(Number(recordBlock.textContent))) return;
+
   memAlarmBlock.textContent = 'M';
 
   if (e.target.hasAttribute('data-memory-clear')) {
