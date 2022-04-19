@@ -1,4 +1,7 @@
 import './style.css';
+import './images/icon.png';
+import './images/day-and-night1.png';
+
 import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
 

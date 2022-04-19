@@ -43,5 +43,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "file-loader": "^6.2.0"
   }
 }
