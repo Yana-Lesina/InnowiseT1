@@ -7,9 +7,8 @@ class Fact extends Command {
 
   execute() {
     const [, right] = this.operandsArray;
-    console.log(right);
     if (+right < 0 || +right >= 1000) {
-      // 9099 for fitting right in callstack
+      // 1000 for fitting right in callstack
       return 'invalid input';
     }
     return this.count(right);

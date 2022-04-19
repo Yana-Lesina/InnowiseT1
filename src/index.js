@@ -47,7 +47,7 @@ btnsBlock.addEventListener('click', e => {
   }
 
   // single-operator operations===================================================
-  if (e.target.hasAttribute('data-single-oper')) {
+  if (e.target.hasAttribute('data-single-operation')) {
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
 
@@ -69,7 +69,7 @@ btnsBlock.addEventListener('click', e => {
     }
   }
   // pair-operator operations===================================================
-  if (e.target.hasAttribute('data-pair-oper')) {
+  if (e.target.hasAttribute('data-pair-operation')) {
     if (Number.isNaN(+document.querySelector('.record-data-block').textContent))
       return;
 
