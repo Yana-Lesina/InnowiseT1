@@ -26,21 +26,21 @@ memoryBtnsBlock.addEventListener('click', e => {
 
   if (Number.isNaN(Number(recordBlock.textContent))) return;
 
-  memAlarmBlock.textContent = 'M';
-
   if (e.target.hasAttribute('data-memory-clear')) {
     calculator.memory.clear();
     memAlarmBlock.textContent = '';
   }
   if (e.target.hasAttribute('data-memory-add')) {
     calculator.memory.add(recordBlock.textContent);
+    memAlarmBlock.textContent = 'M';
   }
   if (e.target.hasAttribute('data-memory-substr')) {
     calculator.memory.substr(recordBlock.textContent);
+    memAlarmBlock.textContent = 'M';
   }
   if (e.target.hasAttribute('data-memory-recall')) {
-    recordBlock.textContent = calculator.memory.recall();
-    new UpdateCurr(calculator).execute(recordBlock.textContent);
+    calculator.currentNum = calculator.memory.recall();
+    new UpdateScreen(calculator).execute();
   }
 });
 
