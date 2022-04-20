@@ -31,7 +31,7 @@ body {
 .calc-screen {
   margin: 50px auto 0px;
   width: 262px;
-  height: 85px;
+  min-height: 85px;
   text-align: right;
 }
 
