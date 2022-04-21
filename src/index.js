@@ -155,7 +155,6 @@ btnsBlock.addEventListener('click', e => {
   }
 
   if (e.target.hasAttribute('data-undo')) {
-    console.log(calculator);
     calculator.undoCommand();
     new UpdateScreen(calculator).execute();
   }
