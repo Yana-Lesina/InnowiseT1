@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "type": "module"
+    "type": "module",
+    "test": "jest"
   },
   "author": "Yana-Lesina",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.2",
     "style-loader": "^3.3.1",
@@ -45,6 +47,7 @@
     ]
   },
   "dependencies": {
+    "@types/jest": "^27.4.1",
     "file-loader": "^6.2.0"
   }
 }
