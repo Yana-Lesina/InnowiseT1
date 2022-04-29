@@ -10,8 +10,8 @@ import Inverse from './operations/Inverse';
 import TenDegreeX from './operations/TenDegreeX';
 
 class OperationFactory {
-  constructor(sign = '') {
-    this.sign = sign;
+  constructor(operationId) {
+    this.operationId = operationId;
   }
 
   static list = {
@@ -30,11 +30,11 @@ class OperationFactory {
     tenDegreeX: TenDegreeX,
   };
 
-  create(operandsArray, operType) {
-    const Operation = OperationFactory.list[operType]; // Add
-    const oper = new Operation(operandsArray); // new Add
-    oper.sign = this.sign;
-    return oper;
+  create(operandsArray) {
+    const Operation = OperationFactory.list[this.operationId]; // Add
+    const operation = new Operation(operandsArray); // new Add
+
+    return operation;
   }
 }
 

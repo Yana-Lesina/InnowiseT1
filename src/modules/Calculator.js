@@ -6,11 +6,9 @@ class Calculator {
     this.prevNum = '';
     this.memory = new Memory();
     this.operation = { sign: '', id: '' };
-    this.history = [];
   }
 
   executeCommand(command) {
-    this.history.push(command);
     if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
 
     const result = command.execute();
@@ -22,15 +20,14 @@ class Calculator {
     return true; // successful operation
   }
 
-  undoCommand() {
+  undoCommand(command) {
     // for empty history
-    if (!this.history.length) {
+    if (!command) {
       this.currentNum = 0;
       this.prevNum = '';
       return;
     }
 
-    const command = this.history.pop();
     const result = +command.undo();
     this.prevNum = parseFloat(result.toFixed(10));
     this.currentNum = parseFloat(result.toFixed(10));
