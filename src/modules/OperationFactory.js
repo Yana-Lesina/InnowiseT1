@@ -30,9 +30,9 @@ class OperationFactory {
     tenDegreeX: TenDegreeX,
   };
 
-  create(operandsArray) {
+  create(operandsArray, sign) {
     const Operation = OperationFactory.list[this.operationId]; // Add
-    const operation = new Operation(operandsArray); // new Add
+    const operation = new Operation(operandsArray, [sign, this.operationId]); // new Add
 
     return operation;
   }

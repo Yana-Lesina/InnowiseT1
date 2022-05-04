@@ -1,4 +1,4 @@
-class OperationMemory {
+class StateManager {
   constructor() {
     this.operations = [];
   }
@@ -8,8 +8,10 @@ class OperationMemory {
   }
 
   getOperation() {
+    if (this.operations.length === 0)
+      return { operandsArray: ['', 0], sign: '' };
     return this.operations.pop();
   }
 }
 
-export default OperationMemory;
+export default StateManager;

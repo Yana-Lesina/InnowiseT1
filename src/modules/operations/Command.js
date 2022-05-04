@@ -1,7 +1,8 @@
 /* eslint-disable class-methods-use-this */
 class Command {
-  constructor(operandsArray) {
+  constructor(operandsArray, operationAttributes) {
     this.operandsArray = operandsArray;
+    this.operationAttributes = operationAttributes;
   }
 
   execute() {

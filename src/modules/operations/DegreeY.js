@@ -5,10 +5,5 @@ class DegreeY extends Command {
     const [left, right] = this.operandsArray;
     return left ** right;
   }
-
-  undo() {
-    const [left] = this.operandsArray;
-    return left;
-  }
 }
 export default DegreeY;

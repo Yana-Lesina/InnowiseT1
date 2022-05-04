@@ -4,7 +4,7 @@ import './images/day-and-night1.png';
 
 import Calculator from './modules/Calculator';
 import OperationFactory from './modules/OperationFactory';
-import OperationMemory from './modules/OperationsMemory';
+import StateManager from './modules/StateManager';
 
 import changeTheme from './modules/changeTheme';
 
@@ -16,7 +16,7 @@ import ClearCurr from './modules/instruments/ClearCurr';
 import UpdateCurr from './modules/instruments/UpdateCurr';
 
 const calculator = new Calculator();
-const CalcOperations = new OperationMemory();
+const OperationsState = new StateManager();
 const memoryBtnsBlock = document.querySelector('.m-btns');
 const recordBlock = document.querySelector('.record-data-block');
 const btnsBlock = document.querySelector('.btns');
@@ -61,10 +61,13 @@ btnsBlock.addEventListener('click', e => {
 
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
-    ).create([calculator.prevNum, calculator.currentNum]);
+    ).create(
+      [calculator.currentNum, calculator.currentNum],
+      calculator.operation.sign,
+    );
 
     if (calculator.executeCommand(OperationToExecute)) {
-      CalcOperations.addOperation(OperationToExecute);
+      OperationsState.addOperation(OperationToExecute);
       new UpdateScreen(calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
@@ -79,10 +82,13 @@ btnsBlock.addEventListener('click', e => {
     if (calculator.operation.id !== '') {
       const OperationToExecute = new OperationFactory(
         calculator.operation.id,
-      ).create([calculator.prevNum, calculator.currentNum]);
+      ).create(
+        [calculator.prevNum, calculator.currentNum],
+        calculator.operation.sign,
+      );
 
       calculator.executeCommand(OperationToExecute);
-      CalcOperations.addOperation(OperationToExecute);
+      OperationsState.addOperation(OperationToExecute);
 
       calculator.operation.id = e.target.id;
       calculator.operation.sign = e.target.getAttribute('data-value');
@@ -95,7 +101,6 @@ btnsBlock.addEventListener('click', e => {
 
     // if there's NO operation to execute
     new AppendPrev(calculator).execute();
-
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
 
@@ -109,10 +114,13 @@ btnsBlock.addEventListener('click', e => {
 
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
-    ).create([calculator.prevNum, calculator.currentNum]);
+    ).create(
+      [calculator.prevNum, recordBlock.textContent], // not calculator.currentNum cuz in "data-undo" btn I clear calculator.currentNum
+      calculator.operation.sign,
+    );
 
     if (calculator.executeCommand(OperationToExecute)) {
-      CalcOperations.addOperation(OperationToExecute);
+      OperationsState.addOperation(OperationToExecute);
       new UpdateScreen(calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
@@ -145,7 +153,10 @@ btnsBlock.addEventListener('click', e => {
   }
 
   if (e.target.hasAttribute('data-undo')) {
-    calculator.undoCommand(CalcOperations.getOperation());
+    const CommandToUndo = OperationsState.getOperation();
+
+    calculator.forseState(CommandToUndo);
     new UpdateScreen(calculator).execute();
+    new ClearCurr(calculator).execute();
   }
 });

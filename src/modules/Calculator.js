@@ -20,17 +20,13 @@ class Calculator {
     return true; // successful operation
   }
 
-  undoCommand(command) {
-    // for empty history
-    if (!command) {
-      this.currentNum = 0;
-      this.prevNum = '';
-      return;
-    }
-
-    const result = +command.undo();
-    this.prevNum = parseFloat(result.toFixed(10));
-    this.currentNum = parseFloat(result.toFixed(10));
+  forseState(stateObj) {
+    const [left, right] = stateObj.operandsArray;
+    const [sign, id] = stateObj.operationAttributes;
+    this.prevNum = left;
+    this.currentNum = right;
+    this.operation.sign = sign;
+    this.operation.id = id;
   }
 }
 
