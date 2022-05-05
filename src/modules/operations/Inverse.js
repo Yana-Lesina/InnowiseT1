@@ -3,8 +3,8 @@ import Command from './Command';
 
 class Inverse extends Command {
   execute() {
-    const [, right] = this.operandsArray;
-    return 1 / right;
+    const left = this.operandsArray[0];
+    return 1 / left;
   }
 }
 

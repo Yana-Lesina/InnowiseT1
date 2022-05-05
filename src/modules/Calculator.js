@@ -9,7 +9,7 @@ class Calculator {
   }
 
   executeCommand(command) {
-    if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
+    // if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
 
     const result = command.execute();
     if (result === Infinity || Number.isNaN(+result)) return false; // failed operation
@@ -20,13 +20,16 @@ class Calculator {
     return true; // successful operation
   }
 
-  forseState(stateObj) {
-    const [left, right] = stateObj.operandsArray;
-    const [sign, id] = stateObj.operationAttributes;
-    this.prevNum = left;
-    this.currentNum = right;
-    this.operation.sign = sign;
-    this.operation.id = id;
+  forseState(state) {
+    if (state.length === 0) {
+      this.prevNum = '';
+      this.currentNum = 0;
+      this.operation = { sign: '', id: '' };
+      return;
+    }
+
+    [this.prevNum, this.currentNum] = state.operandsArray;
+    [this.operation.sign, this.operation.id] = state.operationAttributes;
   }
 }
 

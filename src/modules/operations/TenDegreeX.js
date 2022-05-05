@@ -3,8 +3,8 @@ import Command from './Command';
 
 class TenDegreeX extends Command {
   execute() {
-    const [, right] = this.operandsArray;
-    return 10 ** right;
+    const left = this.operandsArray[0];
+    return 10 ** left;
   }
 }
 

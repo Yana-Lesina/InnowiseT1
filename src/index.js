@@ -11,9 +11,8 @@ import changeTheme from './modules/changeTheme';
 import ClearAll from './modules/instruments/ClearAll';
 import ClearEntry from './modules/instruments/ClearEntry';
 import UpdateScreen from './modules/instruments/UpdateScreen';
-import AppendPrev from './modules/instruments/AppendPrev';
 import ClearCurr from './modules/instruments/ClearCurr';
-import UpdateCurr from './modules/instruments/UpdateCurr';
+import UpdateCurrentOperand from './modules/instruments/UpdateCurrentOperand';
 
 const calculator = new Calculator();
 const OperationsState = new StateManager();
@@ -48,8 +47,12 @@ memoryBtnsBlock.addEventListener('click', e => {
 
 btnsBlock.addEventListener('click', e => {
   if (e.target.hasAttribute('data-num')) {
-    new UpdateCurr(calculator).execute(e.target.textContent);
-    new UpdateScreen(calculator).execute();
+    // if there's = we renew currentBlock ( 5+2=7, then if input 8 => 8, not 87)
+    if (calculator.prevNum !== '' && calculator.operation.id === '') {
+      new ClearAll(calculator).execute();
+      new UpdateScreen(calculator).execute();
+    }
+    new UpdateCurrentOperand(recordBlock).execute(e.target.textContent);
   }
 
   // single-operator operations===================================================
@@ -61,13 +64,12 @@ btnsBlock.addEventListener('click', e => {
 
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
-    ).create(
-      [calculator.currentNum, calculator.currentNum],
       calculator.operation.sign,
-    );
+    ).create([recordBlock.textContent, recordBlock.textContent]);
 
     if (calculator.executeCommand(OperationToExecute)) {
       OperationsState.addOperation(OperationToExecute);
+
       new UpdateScreen(calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
@@ -82,10 +84,8 @@ btnsBlock.addEventListener('click', e => {
     if (calculator.operation.id !== '') {
       const OperationToExecute = new OperationFactory(
         calculator.operation.id,
-      ).create(
-        [calculator.prevNum, calculator.currentNum],
         calculator.operation.sign,
-      );
+      ).create([calculator.prevNum, recordBlock.textContent]);
 
       calculator.executeCommand(OperationToExecute);
       OperationsState.addOperation(OperationToExecute);
@@ -100,7 +100,7 @@ btnsBlock.addEventListener('click', e => {
     }
 
     // if there's NO operation to execute
-    new AppendPrev(calculator).execute();
+    calculator.prevNum = recordBlock.textContent;
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
 
@@ -109,15 +109,13 @@ btnsBlock.addEventListener('click', e => {
   }
 
   if (e.target.hasAttribute('data-equal')) {
-    if (calculator.operation.id === '') return; // '5=' =>5 а не error
     if (Number.isNaN(Number(recordBlock.textContent))) return;
+    if (calculator.operation.id === '') return; // '5=' =>5 а не error
 
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
-    ).create(
-      [calculator.prevNum, recordBlock.textContent], // not calculator.currentNum cuz in "data-undo" btn I clear calculator.currentNum
       calculator.operation.sign,
-    );
+    ).create([calculator.prevNum, recordBlock.textContent]);
 
     if (calculator.executeCommand(OperationToExecute)) {
       OperationsState.addOperation(OperationToExecute);
@@ -135,10 +133,10 @@ btnsBlock.addEventListener('click', e => {
       calculator.prevNum * (recordBlock.textContent / 100);
     new UpdateScreen(calculator).execute();
   }
+
   if (e.target.hasAttribute('data-plus-minus')) {
     if (Number.isNaN(+recordBlock.textContent)) return;
     calculator.currentNum = -Number(recordBlock.textContent);
-
     new UpdateScreen(calculator).execute();
   }
 
@@ -154,9 +152,8 @@ btnsBlock.addEventListener('click', e => {
 
   if (e.target.hasAttribute('data-undo')) {
     const CommandToUndo = OperationsState.getOperation();
-
     calculator.forseState(CommandToUndo);
-    new UpdateScreen(calculator).execute();
     new ClearCurr(calculator).execute();
+    new UpdateScreen(calculator).execute();
   }
 });

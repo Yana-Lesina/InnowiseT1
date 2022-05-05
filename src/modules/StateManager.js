@@ -8,8 +8,7 @@ class StateManager {
   }
 
   getOperation() {
-    if (this.operations.length === 0)
-      return { operandsArray: ['', 0], sign: '' };
+    if (this.operations.length === 0) return [];
     return this.operations.pop();
   }
 }
