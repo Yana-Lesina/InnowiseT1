@@ -8,7 +8,7 @@ App for performing simple mathematical operations
     * Factorial
     * Percentage of a number
     * Change sign
-## Link:
-    [Calculator](https://my-calculator-647f3a.netlify.app/ "Open calculator")
+## Link: 
+   [Calculator](https://my-calculator-647f3a.netlify.app/ "Open calculator")
  
 
