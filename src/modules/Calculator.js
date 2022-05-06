@@ -5,7 +5,7 @@ class Calculator {
     this.currentNum = 0;
     this.prevNum = '';
     this.memory = new Memory();
-    this.operation = { sign: '', id: '' };
+    this.operation = { sign: '', id: '', type: '' };
   }
 
   executeCommand(command) {
@@ -16,7 +16,7 @@ class Calculator {
 
     this.prevNum = parseFloat(result.toFixed(10));
     this.currentNum = parseFloat(result.toFixed(10));
-    this.operation = { sign: '', id: '' };
+    this.operation = { sign: '', id: '', type: '' };
     return true; // successful operation
   }
 
@@ -24,12 +24,13 @@ class Calculator {
     if (state.length === 0) {
       this.prevNum = '';
       this.currentNum = 0;
-      this.operation = { sign: '', id: '' };
+      this.operation = { sign: '', id: '', type: '' };
       return;
     }
 
     [this.prevNum, this.currentNum] = state.operandsArray;
-    [this.operation.sign, this.operation.id] = state.operationAttributes;
+    [this.operation.sign, this.operation.id, this.operation.type] =
+      state.operationAttributes;
   }
 }
 

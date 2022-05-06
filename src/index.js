@@ -48,10 +48,14 @@ memoryBtnsBlock.addEventListener('click', e => {
 btnsBlock.addEventListener('click', e => {
   if (e.target.hasAttribute('data-num')) {
     // if there's = we renew currentBlock ( 5+2=7, then if input 8 => 8, not 87)
-    if (calculator.prevNum !== '' && calculator.operation.id === '') {
+    if (
+      (calculator.prevNum !== '' && calculator.operation.id === '') ||
+      calculator.operation.type === 'single'
+    ) {
       new ClearAll(calculator).execute();
       new UpdateScreen(calculator).execute();
     }
+
     new UpdateCurrentOperand(recordBlock).execute(e.target.textContent);
   }
 
@@ -61,10 +65,12 @@ btnsBlock.addEventListener('click', e => {
 
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
+    calculator.operation.type = 'single';
 
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
       calculator.operation.sign,
+      calculator.operation.type,
     ).create([recordBlock.textContent, recordBlock.textContent]);
 
     if (calculator.executeCommand(OperationToExecute)) {
@@ -85,6 +91,7 @@ btnsBlock.addEventListener('click', e => {
       const OperationToExecute = new OperationFactory(
         calculator.operation.id,
         calculator.operation.sign,
+        calculator.operation.type,
       ).create([calculator.prevNum, recordBlock.textContent]);
 
       calculator.executeCommand(OperationToExecute);
@@ -92,6 +99,7 @@ btnsBlock.addEventListener('click', e => {
 
       calculator.operation.id = e.target.id;
       calculator.operation.sign = e.target.getAttribute('data-value');
+      calculator.operation.type = 'pair';
 
       new ClearCurr(calculator).execute();
       new UpdateScreen(calculator).execute();
@@ -103,6 +111,7 @@ btnsBlock.addEventListener('click', e => {
     calculator.prevNum = recordBlock.textContent;
     calculator.operation.id = e.target.id;
     calculator.operation.sign = e.target.getAttribute('data-value');
+    calculator.operation.type = 'pair';
 
     new ClearCurr(calculator).execute();
     new UpdateScreen(calculator).execute();
@@ -115,6 +124,7 @@ btnsBlock.addEventListener('click', e => {
     const OperationToExecute = new OperationFactory(
       calculator.operation.id,
       calculator.operation.sign,
+      calculator.operation.type,
     ).create([calculator.prevNum, recordBlock.textContent]);
 
     if (calculator.executeCommand(OperationToExecute)) {
