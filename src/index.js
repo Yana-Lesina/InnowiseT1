@@ -8,10 +8,9 @@ import StateManager from './modules/StateManager';
 
 import changeTheme from './modules/changeTheme';
 
-import ClearAll from './modules/instruments/ClearAll';
-import ClearEntry from './modules/instruments/ClearEntry';
+import ClearAllCalcOperands from './modules/instruments/ClearAllCalcOperands';
+import ClearRightCalcOperand from './modules/instruments/ClearRightCalcOperand';
 import UpdateScreen from './modules/instruments/UpdateScreen';
-import ClearCurr from './modules/instruments/ClearCurr';
 import UpdateCurrentOperand from './modules/instruments/UpdateCurrentOperand';
 
 const calculator = new Calculator();
@@ -22,49 +21,49 @@ const btnsBlock = document.querySelector('.btns');
 
 changeTheme();
 
-memoryBtnsBlock.addEventListener('click', e => {
-  const memAlarmBlock = document.querySelector('.mem-data-block');
+memoryBtnsBlock.addEventListener('click', event => {
+  const memoryAlarmBlock = document.querySelector('.mem-data-block');
 
   if (Number.isNaN(Number(recordBlock.textContent))) return;
 
-  if (e.target.hasAttribute('data-memory-clear')) {
+  if (event.target.hasAttribute('data-memory-clear')) {
     calculator.memory.clear();
-    memAlarmBlock.textContent = '';
+    memoryAlarmBlock.textContent = '';
   }
-  if (e.target.hasAttribute('data-memory-add')) {
+  if (event.target.hasAttribute('data-memory-add')) {
     calculator.memory.add(recordBlock.textContent);
-    memAlarmBlock.textContent = 'M';
+    memoryAlarmBlock.textContent = 'M';
   }
-  if (e.target.hasAttribute('data-memory-substr')) {
+  if (event.target.hasAttribute('data-memory-substr')) {
     calculator.memory.substr(recordBlock.textContent);
-    memAlarmBlock.textContent = 'M';
+    memoryAlarmBlock.textContent = 'M';
   }
-  if (e.target.hasAttribute('data-memory-recall')) {
+  if (event.target.hasAttribute('data-memory-recall')) {
     calculator.currentNum = calculator.memory.recall();
     new UpdateScreen(calculator).execute();
   }
 });
 
-btnsBlock.addEventListener('click', e => {
-  if (e.target.hasAttribute('data-num')) {
+btnsBlock.addEventListener('click', event => {
+  if (event.target.hasAttribute('data-num')) {
     // if there's = we renew currentBlock ( 5+2=7, then if input 8 => 8, not 87)
     if (
       (calculator.prevNum !== '' && calculator.operation.id === '') ||
       calculator.operation.type === 'single'
     ) {
-      new ClearAll(calculator).execute();
+      new ClearAllCalcOperands(calculator).execute();
       new UpdateScreen(calculator).execute();
     }
 
-    new UpdateCurrentOperand(recordBlock).execute(e.target.textContent);
+    new UpdateCurrentOperand(recordBlock).execute(event.target.textContent);
   }
 
   // single-operator operations===================================================
-  if (e.target.hasAttribute('data-single-operation')) {
+  if (event.target.hasAttribute('data-single-operation')) {
     if (Number.isNaN(Number(recordBlock.textContent))) return;
 
-    calculator.operation.id = e.target.id;
-    calculator.operation.sign = e.target.getAttribute('data-value');
+    calculator.operation.id = event.target.id;
+    calculator.operation.sign = event.target.getAttribute('data-value');
     calculator.operation.type = 'single';
 
     const OperationToExecute = new OperationFactory(
@@ -79,11 +78,11 @@ btnsBlock.addEventListener('click', e => {
       new UpdateScreen(calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
-      new ClearAll(calculator).execute();
+      new ClearAllCalcOperands(calculator).execute();
     }
   }
   // pair-operator operations===================================================
-  if (e.target.hasAttribute('data-pair-operation')) {
+  if (event.target.hasAttribute('data-pair-operation')) {
     if (Number.isNaN(Number(recordBlock.textContent))) return;
 
     // if there's operation to execute
@@ -97,11 +96,11 @@ btnsBlock.addEventListener('click', e => {
       calculator.executeCommand(OperationToExecute);
       OperationsState.addOperation(OperationToExecute);
 
-      calculator.operation.id = e.target.id;
-      calculator.operation.sign = e.target.getAttribute('data-value');
+      calculator.operation.id = event.target.id;
+      calculator.operation.sign = event.target.getAttribute('data-value');
       calculator.operation.type = 'pair';
 
-      new ClearCurr(calculator).execute();
+      new ClearRightCalcOperand(calculator).execute();
       new UpdateScreen(calculator).execute();
 
       return;
@@ -109,15 +108,15 @@ btnsBlock.addEventListener('click', e => {
 
     // if there's NO operation to execute
     calculator.prevNum = recordBlock.textContent;
-    calculator.operation.id = e.target.id;
-    calculator.operation.sign = e.target.getAttribute('data-value');
+    calculator.operation.id = event.target.id;
+    calculator.operation.sign = event.target.getAttribute('data-value');
     calculator.operation.type = 'pair';
 
-    new ClearCurr(calculator).execute();
+    new ClearRightCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
-  if (e.target.hasAttribute('data-equal')) {
+  if (event.target.hasAttribute('data-equal')) {
     if (Number.isNaN(Number(recordBlock.textContent))) return;
     if (calculator.operation.id === '') return; // '5=' =>5 а не error
 
@@ -132,38 +131,38 @@ btnsBlock.addEventListener('click', e => {
       new UpdateScreen(calculator).execute();
     } else {
       recordBlock.textContent = 'invalid operation';
-      new ClearAll(calculator).execute();
+      new ClearAllCalcOperands(calculator).execute();
     }
   }
 
   // rest specific non-automated operations===================================================
-  if (e.target.hasAttribute('data-percent')) {
+  if (event.target.hasAttribute('data-percent')) {
     if (Number.isNaN(+recordBlock.textContent)) return;
     calculator.currentNum =
       calculator.prevNum * (recordBlock.textContent / 100);
     new UpdateScreen(calculator).execute();
   }
 
-  if (e.target.hasAttribute('data-plus-minus')) {
+  if (event.target.hasAttribute('data-plus-minus')) {
     if (Number.isNaN(+recordBlock.textContent)) return;
     calculator.currentNum = -Number(recordBlock.textContent);
     new UpdateScreen(calculator).execute();
   }
 
-  if (e.target.hasAttribute('data-clear-all')) {
-    new ClearAll(calculator).execute();
+  if (event.target.hasAttribute('data-clear-all')) {
+    new ClearAllCalcOperands(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
-  if (e.target.hasAttribute('data-clear-entry')) {
-    new ClearEntry(calculator).execute();
+  if (event.target.hasAttribute('data-clear-entry')) {
+    new ClearRightCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
-  if (e.target.hasAttribute('data-undo')) {
+  if (event.target.hasAttribute('data-undo')) {
     const CommandToUndo = OperationsState.getOperation();
     calculator.forseState(CommandToUndo);
-    new ClearCurr(calculator).execute();
+    new ClearRightCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 });

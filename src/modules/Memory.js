@@ -1,22 +1,22 @@
 class Memory {
-  memNum = 0;
+  memoryNum = 0;
 
   add(num) {
-    this.memNum += Number(num);
-    return this.memNum;
+    this.memoryNum += Number(num);
+    return this.memoryNum;
   }
 
   substr(num) {
-    this.memNum -= Number(num);
-    return this.memNum;
+    this.memoryNum -= Number(num);
+    return this.memoryNum;
   }
 
   recall() {
-    return Number(this.memNum);
+    return Number(this.memoryNum);
   }
 
   clear() {
-    this.memNum = 0;
+    this.memoryNum = 0;
   }
 }
 
