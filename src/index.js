@@ -9,7 +9,7 @@ import StateManager from './modules/StateManager';
 import changeTheme from './modules/changeTheme';
 
 import ClearAllCalcOperands from './modules/instruments/ClearAllCalcOperands';
-import ClearRightCalcOperand from './modules/instruments/ClearRightCalcOperand';
+import ClearLeftCalcOperand from './modules/instruments/ClearLeftCalcOperand';
 import UpdateScreen from './modules/instruments/UpdateScreen';
 import UpdateCurrentOperand from './modules/instruments/UpdateCurrentOperand';
 
@@ -100,7 +100,7 @@ btnsBlock.addEventListener('click', event => {
       calculator.operation.sign = event.target.getAttribute('data-value');
       calculator.operation.type = 'pair';
 
-      new ClearRightCalcOperand(calculator).execute();
+      // new ClearLeftCalcOperand(calculator).execute();
       new UpdateScreen(calculator).execute();
 
       return;
@@ -112,7 +112,7 @@ btnsBlock.addEventListener('click', event => {
     calculator.operation.sign = event.target.getAttribute('data-value');
     calculator.operation.type = 'pair';
 
-    new ClearRightCalcOperand(calculator).execute();
+    // new ClearLeftCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
@@ -155,14 +155,14 @@ btnsBlock.addEventListener('click', event => {
   }
 
   if (event.target.hasAttribute('data-clear-entry')) {
-    new ClearRightCalcOperand(calculator).execute();
+    new ClearLeftCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 
   if (event.target.hasAttribute('data-undo')) {
     const CommandToUndo = OperationsState.getOperation();
     calculator.forseState(CommandToUndo);
-    new ClearRightCalcOperand(calculator).execute();
+    new ClearLeftCalcOperand(calculator).execute();
     new UpdateScreen(calculator).execute();
   }
 });
