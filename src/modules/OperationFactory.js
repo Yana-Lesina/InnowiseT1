@@ -17,19 +17,19 @@ class OperationFactory {
   }
 
   static list = {
-    add: Add,
-    substract: Substract,
-    mult: Mult,
-    divide: Divide,
-    'degree-y': DegreeY,
-    'root-y': RootY,
-    degree2: Degree2,
-    degree3: Degree3,
-    root2: Root2,
-    root3: Root3,
-    fact: Fact,
-    inverse: Inverse,
-    tenDegreeX: TenDegreeX,
+    '+': Add,
+    '-': Substract,
+    x: Mult,
+    '÷': Divide,
+    xⁿ: DegreeY,
+    'ⁿ√x': RootY,
+    'x²': Degree2,
+    'x³': Degree3,
+    '√x': Root2,
+    '∛x': Root3,
+    '!x': Fact,
+    '1/x': Inverse,
+    '10ⁿ': TenDegreeX,
   };
 
   create(operandsArray) {

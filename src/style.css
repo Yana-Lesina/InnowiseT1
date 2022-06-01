@@ -64,13 +64,30 @@ body {
 
 .btns {
   display: grid;
+  grid-template-areas:
+    'x² % CE C undo'
+    'x³ !x 1/x 10ⁿ ÷'
+    'xⁿ 7 8 9 x'
+    '√x 4 5 6 -'
+    '∛x 1 2 3 +'
+    'ⁿ√x ± 0 . =';
   grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(5, 50px);
+
+  /* grid-template-areas:
+    'data-modify-operation data-percent data-clear-entry data-clear-all data-undo'
+    'data-modify-operation data-modify-operation data-modify-operation data-modify-operation data-calculate-operation'
+    'data-calculate-operation data-num data-num data-num data-calculate-operation'
+    'data-modify-operation data-num data-num data-num data-calculate-operation'
+    'data-modify-operation data-num data-num data-num data-calculate-operation'
+    'data-calculate-operation data-plus-minus data-num data-num data-equal'; */
   grid-gap: 3px;
   justify-content: center;
   justify-items: center;
 }
 
-.btn-num {
+/* previous class -  btn-num*/
+.btn {
   width: 50px;
   height: 50px;
   /* background-color: #a6a6a6; */

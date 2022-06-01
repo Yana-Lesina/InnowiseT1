@@ -8,6 +8,25 @@ class Calculator {
     this.operation = { sign: '', id: '', type: '' };
   }
 
+  static modifyOperations = {
+    'x²': '^2',
+    'x³': '^3',
+    '!x': '!',
+    '1/x': '^(-1)',
+    '10ⁿ': '10^',
+    '√x': '√',
+    '∛x': '∛',
+  };
+
+  static calculateOperations = {
+    xⁿ: '^',
+    'ⁿ√x': '^(1÷',
+    '÷': '÷',
+    x: 'x',
+    '-': '-',
+    '+': '+',
+  };
+
   executeCommand(command) {
     // if (this.currentNum === '') this.currentNum = this.prevNum; // 5+ = 5+5
 
@@ -15,7 +34,7 @@ class Calculator {
     if (result === Infinity || Number.isNaN(+result)) return false; // failed operation
 
     this.prevNum = parseFloat(result.toFixed(10));
-    this.currentNum = parseFloat(result.toFixed(10));
+    // this.currentNum = parseFloat(result.toFixed(10));
     this.operation = { sign: '', id: '', type: '' };
     return true; // successful operation
   }
