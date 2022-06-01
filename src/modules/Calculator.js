@@ -34,12 +34,14 @@ class Calculator {
     if (result === Infinity || Number.isNaN(+result)) return false; // failed operation
 
     this.prevNum = parseFloat(result.toFixed(10));
+    this.currentNum = '';
     // this.currentNum = parseFloat(result.toFixed(10));
+
     this.operation = { sign: '', id: '', type: '' };
     return true; // successful operation
   }
 
-  forseState(state) {
+  forceState(state) {
     if (state.length === 0) {
       this.prevNum = '';
       this.currentNum = 0;

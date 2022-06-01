@@ -1,8 +1,8 @@
 import Instrument from './Instrument';
 
-class ClearLeftCalcOperand extends Instrument {
+class ClearRightCalcOperand extends Instrument {
   execute() {
     this.calc.currentNum = 0;
   }
 }
-export default ClearLeftCalcOperand;
+export default ClearRightCalcOperand;

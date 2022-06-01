@@ -8,7 +8,7 @@ class Fact extends Command {
   execute() {
     const left = this.operandsArray[0];
     if (+left === 0 || +left === 1) return 1;
-    if (+left < 0 || +left >= 1000) {
+    if (+left < 0 || +left > 1000) {
       // 1000 for fitting right in callstack
       return 'invalid input';
     }

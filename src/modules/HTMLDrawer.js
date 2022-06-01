@@ -139,6 +139,20 @@ class HTMLDrawer {
       }
     });
   }
+
+  updateScreen(leftOperand, rightOperand) {
+    this.previousInput.textContent = leftOperand;
+    this.recordInput.textContent = rightOperand;
+  }
+  showCalculationResult(leftOperand, sign = '') {
+    this.previousInput.textContent = `${leftOperand} ${sign}`;
+    this.recordInput.textContent = '';
+  }
+  showModificationResult(leftOperand) {
+    this.previousInput.textContent = `${leftOperand}`;
+    this.recordInput.textContent = `${leftOperand}`;
+  }
+  showEqualResult() {}
 }
 
 export default HTMLDrawer;
