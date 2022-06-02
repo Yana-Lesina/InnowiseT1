@@ -8,6 +8,13 @@ class Calculator {
     this.operation = { sign: '', id: '', type: '' };
   }
 
+  static memoryOperations = {
+    MC: 'data-memory-clear',
+    'M+': 'data-memory-add',
+    'M-': 'data-memory-substr',
+    MR: 'data-memory-recall',
+  };
+
   static modifyOperations = {
     'x²': '^2',
     'x³': '^3',

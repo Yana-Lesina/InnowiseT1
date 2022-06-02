@@ -37,7 +37,6 @@ class HTMLDrawer {
     this.calculatorWrapper.appendChild(this.screen);
     this.calculatorWrapper.appendChild(this.allButtonsWrapper);
 
-    console.log(this.themeButton);
     this.rootElement.appendChild(this.themeButton);
     this.rootElement.appendChild(this.calculatorWrapper);
   }
@@ -54,6 +53,7 @@ class HTMLDrawer {
 
     this.recordInput = document.createElement('div');
     this.recordInput.classList.add('record-data-block');
+    this.recordInput.textContent = '0';
 
     screen.appendChild(this.memoryInput);
     screen.appendChild(this.previousInput);
@@ -83,7 +83,17 @@ class HTMLDrawer {
     return themeButton;
   }
 
-  appendNumButton(value, className, sign = '') {
+  appendMemoryButton(value, className) {
+    const button = document.createElement('div');
+
+    button.classList.add('m-btn');
+    button.dataset.type = className;
+    button.textContent = value;
+
+    this.memoryButtonsWrapper.appendChild(button);
+  }
+
+  appendNumButton(value, className) {
     const button = document.createElement('div');
 
     button.classList.add('btn', 'day-theme-gray', value);

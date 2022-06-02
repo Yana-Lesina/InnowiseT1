@@ -73,14 +73,6 @@ body {
     'ⁿ√x ± 0 . =';
   grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
-
-  /* grid-template-areas:
-    'data-modify-operation data-percent data-clear-entry data-clear-all data-undo'
-    'data-modify-operation data-modify-operation data-modify-operation data-modify-operation data-calculate-operation'
-    'data-calculate-operation data-num data-num data-num data-calculate-operation'
-    'data-modify-operation data-num data-num data-num data-calculate-operation'
-    'data-modify-operation data-num data-num data-num data-calculate-operation'
-    'data-calculate-operation data-plus-minus data-num data-num data-equal'; */
   grid-gap: 3px;
   justify-content: center;
   justify-items: center;

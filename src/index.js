@@ -27,6 +27,10 @@ class CalculatorApp {
   start() {
     this.drawer.renderLayout();
 
+    for (let prop in Calculator.memoryOperations) {
+      this.drawer.appendMemoryButton(prop, Calculator.memoryOperations[prop]);
+    }
+
     ['.', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].forEach(num => {
       this.drawer.appendNumButton(num, 'data-num');
     });
@@ -53,6 +57,27 @@ class CalculatorApp {
     this.drawer.appendOperationButton('undo', '', 'data-undo');
     this.drawer.appendOperationButton('%', '', 'data-percent');
     this.drawer.appendOperationButton('±', '', 'data-plus-minus');
+
+    this.drawer.memoryButtonsWrapper.addEventListener('click', event => {
+      if (Number.isNaN(Number(this.drawer.recordInput.textContent))) return;
+
+      if (event.target.getAttribute('data-type') === 'data-memory-clear') {
+        this.calculator.memory.clear();
+        this.drawer.memoryInput.textContent = '';
+      }
+      if (event.target.getAttribute('data-type') === 'data-memory-add') {
+        this.calculator.memory.add(this.drawer.recordInput.textContent);
+        this.drawer.memoryInput.textContent = 'M';
+      }
+      if (event.target.getAttribute('data-type') === 'data-memory-substr') {
+        this.calculator.memory.substr(this.drawer.recordInput.textContent);
+        this.memoryInput.textContent = 'M';
+      }
+      if (event.target.getAttribute('data-type') === 'data-memory-recall') {
+        this.calculator.currentNum = this.calculator.memory.recall();
+        new UpdateScreen(this.calculator).execute();
+      }
+    });
 
     this.drawer.allButtonsWrapper.addEventListener('click', event => {
       if (event.target.getAttribute('data-type') === 'data-num') {
