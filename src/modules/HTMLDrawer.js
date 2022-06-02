@@ -99,6 +99,7 @@ class HTMLDrawer {
     button.classList.add('btn', 'day-theme-gray', value);
     button.dataset.type = className;
     button.textContent = value;
+    // button.style.gridArea = value;
     button.id = value;
 
     this.operationButtonsWrapper.appendChild(button);
@@ -109,6 +110,7 @@ class HTMLDrawer {
     button.classList.add('btn', 'day-theme-gray', value);
     button.dataset.type = className;
     button.dataset.sign = sign;
+    // button.style.gridArea = value;
     button.textContent = value;
     button.id = value;
 

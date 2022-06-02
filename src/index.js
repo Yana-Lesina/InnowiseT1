@@ -58,6 +58,8 @@ class CalculatorApp {
     this.drawer.appendOperationButton('%', '', 'data-percent');
     this.drawer.appendOperationButton('±', '', 'data-plus-minus');
 
+    //this.drawer.calculatorWrapper.classList.add('btns-grid');
+
     this.drawer.memoryButtonsWrapper.addEventListener('click', event => {
       if (Number.isNaN(Number(this.drawer.recordInput.textContent))) return;
 

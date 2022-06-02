@@ -64,13 +64,13 @@ body {
 
 .btns {
   display: grid;
-  grid-template-areas:
+  /* grid-template-areas:
     'x² % CE C undo'
     'x³ !x 1/x 10ⁿ ÷'
     'xⁿ 7 8 9 x'
     '√x 4 5 6 -'
     '∛x 1 2 3 +'
-    'ⁿ√x ± 0 . =';
+    'ⁿ√x ± 0 . ='; */
   grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
   grid-gap: 3px;
@@ -128,4 +128,14 @@ body {
 }
 .night-theme-blue {
   background-color: #694c97;
+}
+
+.btns-grid {
+  grid-template-areas:
+    'x² % CE C undo'
+    'x³ !x 1/x 10ⁿ ÷'
+    'xⁿ 7 8 9 x'
+    '√x 4 5 6 -'
+    '∛x 1 2 3 +'
+    'ⁿ√x ± 0 . =';
 }
