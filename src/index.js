@@ -1,4 +1,7 @@
 import './style.css';
+import './night-theme.css';
+import './day-theme.css';
+
 import './images/icon.png';
 import './images/day-and-night1.png';
 
@@ -25,40 +28,8 @@ class CalculatorApp {
   }
 
   start() {
+    this.drawer.setTheme();
     this.drawer.renderLayout();
-
-    for (let prop in Calculator.memoryOperations) {
-      this.drawer.appendMemoryButton(prop, Calculator.memoryOperations[prop]);
-    }
-
-    ['.', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].forEach(num => {
-      this.drawer.appendNumButton(num, 'data-num');
-    });
-
-    for (let prop in Calculator.modifyOperations) {
-      this.drawer.appendOperationButton(
-        prop,
-        Calculator.modifyOperations[prop],
-        'data-modify-operation',
-      );
-    }
-
-    for (let prop in Calculator.calculateOperations) {
-      this.drawer.appendOperationButton(
-        prop,
-        Calculator.calculateOperations[prop],
-        'data-calculate-operation',
-      );
-    }
-
-    this.drawer.appendOperationButton('=', '', 'data-equal');
-    this.drawer.appendOperationButton('CE', '', 'data-clear-entry');
-    this.drawer.appendOperationButton('C', ' ', 'data-clear-all');
-    this.drawer.appendOperationButton('undo', '', 'data-undo');
-    this.drawer.appendOperationButton('%', '', 'data-percent');
-    this.drawer.appendOperationButton('±', '', 'data-plus-minus');
-
-    //this.drawer.calculatorWrapper.classList.add('btns-grid');
 
     this.drawer.memoryButtonsWrapper.addEventListener('click', event => {
       if (Number.isNaN(Number(this.drawer.recordInput.textContent))) return;

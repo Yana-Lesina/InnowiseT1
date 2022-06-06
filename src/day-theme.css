@@ -1,0 +1,15 @@
+body {
+  background-color: #a2a1a1;
+}
+
+.btn {
+  background-color: #a2a1a1;
+}
+
+.btn.right-sided-btn {
+  background-color: #e6c563;
+}
+
+.theme-btn {
+  background-color: #e6c563;
+}

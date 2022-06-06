@@ -64,6 +64,9 @@ body {
 
 .btns {
   display: grid;
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(5, 50px);
+  grid-gap: 3px;
   /* grid-template-areas:
     'x² % CE C undo'
     'x³ !x 1/x 10ⁿ ÷'
@@ -71,14 +74,11 @@ body {
     '√x 4 5 6 -'
     '∛x 1 2 3 +'
     'ⁿ√x ± 0 . ='; */
-  grid-template-columns: repeat(5, 50px);
-  grid-template-rows: repeat(5, 50px);
-  grid-gap: 3px;
+
   justify-content: center;
   justify-items: center;
 }
 
-/* previous class -  btn-num*/
 .btn {
   width: 50px;
   height: 50px;
@@ -115,27 +115,17 @@ body {
 }
 
 /* some buttons & background */
-.day-theme-gray {
+/* .day-theme-gray {
   background-color: #a2a1a1;
 }
 .day-theme-orange {
   background-color: #e6c563;
-}
+} */
 
 /* right-sided buttons & theme-btn*/
-.night-theme-gray {
+/* .night-theme-gray {
   background-color: #48455b;
 }
 .night-theme-blue {
   background-color: #694c97;
-}
-
-.btns-grid {
-  grid-template-areas:
-    'x² % CE C undo'
-    'x³ !x 1/x 10ⁿ ÷'
-    'xⁿ 7 8 9 x'
-    '√x 4 5 6 -'
-    '∛x 1 2 3 +'
-    'ⁿ√x ± 0 . =';
-}
+} */

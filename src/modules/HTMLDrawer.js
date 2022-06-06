@@ -1,3 +1,5 @@
+import Calculator from './Calculator';
+
 class HTMLDrawer {
   rootElement;
   calculatorWrapper;
@@ -20,6 +22,48 @@ class HTMLDrawer {
     }
   }
 
+  appendButtons() {
+    for (let prop in Calculator.memoryOperations) {
+      this.appendMemoryButton(prop, Calculator.memoryOperations[prop]);
+    }
+
+    this.appendOperationButton('x²', '^2', 'data-modify-operation');
+    this.appendOperationButton('%', '', 'data-percent');
+    this.appendOperationButton('CE', '', 'data-clear-entry');
+    this.appendOperationButton('C', ' ', 'data-clear-all');
+    this.appendOperationButton('undo', '', 'data-undo');
+
+    this.appendOperationButton('x³', '^3', 'data-modify-operation');
+    this.appendOperationButton('x!', '!', 'data-modify-operation');
+    this.appendOperationButton('1/x', '^(-1)', 'data-modify-operation');
+    this.appendOperationButton('10ⁿ', '10^', 'data-modify-operation');
+    this.appendOperationButton('÷', '÷', 'data-calculate-operation');
+
+    this.appendOperationButton('xⁿ', '^', 'data-calculate-operation');
+    [7, 8, 9].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('x', 'x', 'data-calculate-operation');
+
+    this.appendOperationButton('√x', '√', 'data-modify-operation');
+    [4, 5, 6].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('-', '-', 'data-calculate-operation');
+
+    this.appendOperationButton('∛x', '∛', 'data-modify-operation');
+    [1, 2, 3].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('+', '+', 'data-calculate-operation');
+
+    this.appendOperationButton('ⁿ√x', 'ⁿ√', 'data-modify-operation');
+    this.appendOperationButton('±', '', 'data-plus-minus');
+    this.appendNumButton(0, 'data-num');
+    this.appendNumButton('.', 'data-num');
+    this.appendOperationButton('=', '', 'data-equal');
+  }
+
   renderLayout() {
     this.themeButton = this.renderThemeButton('images/day-and-night1.png');
 
@@ -36,6 +80,9 @@ class HTMLDrawer {
 
     this.calculatorWrapper.appendChild(this.screen);
     this.calculatorWrapper.appendChild(this.allButtonsWrapper);
+
+    this.appendButtons();
+    this.addRightSidedColor();
 
     this.rootElement.appendChild(this.themeButton);
     this.rootElement.appendChild(this.calculatorWrapper);
@@ -71,7 +118,7 @@ class HTMLDrawer {
 
   renderThemeButton(imgLink) {
     const themeButton = document.createElement('div');
-    themeButton.classList.add('btn', 'theme-btn', 'day-theme-orange');
+    themeButton.classList.add('btn', 'theme-btn');
 
     const themeImage = new Image();
     themeImage.classList.add('theme-img');
@@ -96,7 +143,7 @@ class HTMLDrawer {
   appendNumButton(value, className) {
     const button = document.createElement('div');
 
-    button.classList.add('btn', 'day-theme-gray', value);
+    button.classList.add('btn', value);
     button.dataset.type = className;
     button.textContent = value;
     // button.style.gridArea = value;
@@ -107,7 +154,7 @@ class HTMLDrawer {
 
   appendOperationButton(value, sign = '', className) {
     const button = document.createElement('div');
-    button.classList.add('btn', 'day-theme-gray', value);
+    button.classList.add('btn', value);
     button.dataset.type = className;
     button.dataset.sign = sign;
     // button.style.gridArea = value;
@@ -119,35 +166,21 @@ class HTMLDrawer {
 
   changeTheme() {
     this.themeButton.addEventListener('click', () => {
-      const background = document.body;
-      const buttons = document.querySelectorAll('.btn');
+      document.body.classList.toggle('night-theme');
+    });
+  }
 
-      if (background.classList.contains('day-theme-gray')) {
-        background.classList.remove('day-theme-gray');
-        background.classList.add('night-theme-gray');
+  setTheme() {
+    const currentTime = new Date().getHours();
+    if (currentTime >= 21 && currentTime <= 4) {
+      document.body.classList.add('night-theme');
+    }
+  }
 
-        buttons.forEach(button => {
-          if (button.classList.contains('day-theme-gray')) {
-            button.classList.remove('day-theme-gray');
-            button.classList.add('night-theme-gray');
-          } else {
-            button.classList.remove('day-theme-orange');
-            button.classList.add('night-theme-blue');
-          }
-        });
-      } else {
-        background.classList.remove('night-theme-gray');
-        background.classList.add('day-theme-gray');
-
-        buttons.forEach(button => {
-          if (button.classList.contains('night-theme-gray')) {
-            button.classList.remove('night-theme-gray');
-            button.classList.add('day-theme-gray');
-          } else {
-            button.classList.remove('night-theme-blue');
-            button.classList.add('day-theme-orange');
-          }
-        });
+  addRightSidedColor() {
+    this.operationButtonsWrapper.querySelectorAll('.btn').forEach((btn, id) => {
+      if ((id + 1) % 5 === 0) {
+        btn.classList.add('right-sided-btn');
       }
     });
   }
