@@ -35,11 +35,11 @@ test('Properly Divide', () => {
 });
 
 test('Properly Degree2', () => {
-  expect(new Degree2(['', 3]).execute()).toBe(9);
+  expect(new Degree2(['3', '']).execute()).toBe(9);
 });
 
 test('Properly Degree3', () => {
-  expect(new Degree3(['', 3]).execute()).toBe(27);
+  expect(new Degree3(['3', '']).execute()).toBe(27);
 });
 
 test('Properly DegreeY', () => {
@@ -47,11 +47,11 @@ test('Properly DegreeY', () => {
 });
 
 test('Properly Root2', () => {
-  expect(new Root2(['', 16]).execute()).toBe(4);
+  expect(new Root2([16, '']).execute()).toBe(4);
 });
 
 test('Properly Root3', () => {
-  expect(new Root3(['', 8]).execute()).toBe(2);
+  expect(new Root3(['8', '']).execute()).toBe(2);
 });
 
 test('Properly RootY', () => {
@@ -59,13 +59,13 @@ test('Properly RootY', () => {
 });
 
 test('Properly Fact', () => {
-  expect(new Fact(['', 7]).execute()).toBe(5040);
+  expect(new Fact(['7', '']).execute()).toBe(5040);
 });
 
 test('Properly Inverse', () => {
-  expect(new Inverse(['', 5]).execute()).toBe(0.2);
+  expect(new Inverse(['5', '']).execute()).toBe(0.2);
 });
 
 test('Properly TenDegreeX', () => {
-  expect(new TenDegreeX(['', 3]).execute()).toBe(1000);
+  expect(new TenDegreeX(['3', '']).execute()).toBe(1000);
 });

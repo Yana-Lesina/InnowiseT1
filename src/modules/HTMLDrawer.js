@@ -22,48 +22,6 @@ class HTMLDrawer {
     }
   }
 
-  appendButtons() {
-    for (let prop in Calculator.memoryOperations) {
-      this.appendMemoryButton(prop, Calculator.memoryOperations[prop]);
-    }
-
-    this.appendOperationButton('x²', '^2', 'data-modify-operation');
-    this.appendOperationButton('%', '', 'data-percent');
-    this.appendOperationButton('CE', '', 'data-clear-entry');
-    this.appendOperationButton('C', ' ', 'data-clear-all');
-    this.appendOperationButton('undo', '', 'data-undo');
-
-    this.appendOperationButton('x³', '^3', 'data-modify-operation');
-    this.appendOperationButton('x!', '!', 'data-modify-operation');
-    this.appendOperationButton('1/x', '^(-1)', 'data-modify-operation');
-    this.appendOperationButton('10ⁿ', '10^', 'data-modify-operation');
-    this.appendOperationButton('÷', '÷', 'data-calculate-operation');
-
-    this.appendOperationButton('xⁿ', '^', 'data-calculate-operation');
-    [7, 8, 9].forEach(num => {
-      this.appendNumButton(num, 'data-num');
-    });
-    this.appendOperationButton('x', 'x', 'data-calculate-operation');
-
-    this.appendOperationButton('√x', '√', 'data-modify-operation');
-    [4, 5, 6].forEach(num => {
-      this.appendNumButton(num, 'data-num');
-    });
-    this.appendOperationButton('-', '-', 'data-calculate-operation');
-
-    this.appendOperationButton('∛x', '∛', 'data-modify-operation');
-    [1, 2, 3].forEach(num => {
-      this.appendNumButton(num, 'data-num');
-    });
-    this.appendOperationButton('+', '+', 'data-calculate-operation');
-
-    this.appendOperationButton('ⁿ√x', 'ⁿ√', 'data-modify-operation');
-    this.appendOperationButton('±', '', 'data-plus-minus');
-    this.appendNumButton(0, 'data-num');
-    this.appendNumButton('.', 'data-num');
-    this.appendOperationButton('=', '', 'data-equal');
-  }
-
   renderLayout() {
     this.themeButton = this.renderThemeButton('images/day-and-night1.png');
 
@@ -88,6 +46,27 @@ class HTMLDrawer {
     this.rootElement.appendChild(this.calculatorWrapper);
   }
 
+  renderThemeButton(imgLink) {
+    const themeButton = document.createElement('div');
+    themeButton.classList.add('btn', 'theme-btn');
+
+    const themeImage = new Image();
+    themeImage.classList.add('theme-img');
+    themeImage.src = imgLink;
+
+    themeImage.alt = 'day-night-theme';
+
+    themeButton.appendChild(themeImage);
+    return themeButton;
+  }
+
+  renderWrapper(className) {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add(className);
+
+    return wrapper;
+  }
+
   renderScreen() {
     const screen = document.createElement('div');
     screen.classList.add('calc-screen');
@@ -109,25 +88,46 @@ class HTMLDrawer {
     return screen;
   }
 
-  renderWrapper(className) {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add(className);
+  appendButtons() {
+    for (let prop in Calculator.memoryOperations) {
+      this.appendMemoryButton(prop, Calculator.memoryOperations[prop]);
+    }
 
-    return wrapper;
-  }
+    this.appendOperationButton('x²', '^2', 'data-modify-operation');
+    this.appendOperationButton('%', '', 'data-percent');
+    this.appendOperationButton('CE', '', 'data-clear-entry');
+    this.appendOperationButton('C', ' ', 'data-clear-all');
+    this.appendOperationButton('undo', '', 'data-undo');
 
-  renderThemeButton(imgLink) {
-    const themeButton = document.createElement('div');
-    themeButton.classList.add('btn', 'theme-btn');
+    this.appendOperationButton('x³', '^3', 'data-modify-operation');
+    this.appendOperationButton('x!', '!', 'data-modify-operation');
+    this.appendOperationButton('1/x', '^(-1)', 'data-modify-operation');
+    this.appendOperationButton('10ⁿ', 'degree of 10', 'data-modify-operation');
+    this.appendOperationButton('÷', '÷', 'data-calculate-operation');
 
-    const themeImage = new Image();
-    themeImage.classList.add('theme-img');
-    themeImage.src = imgLink;
+    this.appendOperationButton('xⁿ', '^', 'data-calculate-operation');
+    [7, 8, 9].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('x', 'x', 'data-calculate-operation');
 
-    themeImage.alt = 'day-night-theme';
+    this.appendOperationButton('√x', '^(1/2)', 'data-modify-operation');
+    [4, 5, 6].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('-', '-', 'data-calculate-operation');
 
-    themeButton.appendChild(themeImage);
-    return themeButton;
+    this.appendOperationButton('∛x', '^(1/3)', 'data-modify-operation');
+    [1, 2, 3].forEach(num => {
+      this.appendNumButton(num, 'data-num');
+    });
+    this.appendOperationButton('+', '+', 'data-calculate-operation');
+
+    this.appendOperationButton('ⁿ√x', '^(1÷', 'data-calculate-operation');
+    this.appendOperationButton('±', '', 'data-plus-minus');
+    this.appendNumButton(0, 'data-num');
+    this.appendNumButton('.', 'data-num');
+    this.appendOperationButton('=', '', 'data-equal');
   }
 
   appendMemoryButton(value, className) {
@@ -146,7 +146,6 @@ class HTMLDrawer {
     button.classList.add('btn', value);
     button.dataset.type = className;
     button.textContent = value;
-    // button.style.gridArea = value;
     button.id = value;
 
     this.operationButtonsWrapper.appendChild(button);
@@ -157,13 +156,13 @@ class HTMLDrawer {
     button.classList.add('btn', value);
     button.dataset.type = className;
     button.dataset.sign = sign;
-    // button.style.gridArea = value;
     button.textContent = value;
     button.id = value;
 
     this.operationButtonsWrapper.appendChild(button);
   }
 
+  //THEMES----------------------------------------------------------------------------
   changeTheme() {
     this.themeButton.addEventListener('click', () => {
       document.body.classList.toggle('night-theme');
@@ -172,7 +171,7 @@ class HTMLDrawer {
 
   setTheme() {
     const currentTime = new Date().getHours();
-    if (currentTime >= 21 && currentTime <= 4) {
+    if (currentTime >= 21 || currentTime <= 4) {
       document.body.classList.add('night-theme');
     }
   }
@@ -185,19 +184,28 @@ class HTMLDrawer {
     });
   }
 
-  updateScreen(leftOperand, rightOperand) {
-    this.previousInput.textContent = leftOperand;
+  // INPUTS UPDATING----------------------------------------------------------------------------
+  updateCurrentOperand(symbol) {
+    // forbid users to enter more than one comma
+    if (symbol === '.' && this.recordInput.textContent.includes('.')) return;
+
+    this.recordInput.textContent += symbol;
+
+    this.recordInput.textContent = String(this.recordInput.textContent).replace(
+      /^00+/g,
+      '0',
+    );
+    this.recordInput.textContent = String(this.recordInput.textContent).replace(
+      /^0+[1-9]+/g,
+      /[1-9]+/g.exec(String(this.recordInput.textContent)) ||
+        this.recordInput.textContent,
+    );
+  }
+
+  updateScreen(leftOperand, rightOperand, sign) {
+    this.previousInput.textContent = `${leftOperand} ${sign}`;
     this.recordInput.textContent = rightOperand;
   }
-  showCalculationResult(leftOperand, sign = '') {
-    this.previousInput.textContent = `${leftOperand} ${sign}`;
-    this.recordInput.textContent = '';
-  }
-  showModificationResult(leftOperand) {
-    this.previousInput.textContent = `${leftOperand}`;
-    this.recordInput.textContent = `${leftOperand}`;
-  }
-  showEqualResult() {}
 }
 
 export default HTMLDrawer;

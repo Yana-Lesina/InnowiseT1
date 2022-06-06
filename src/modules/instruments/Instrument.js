@@ -4,7 +4,7 @@ class Instrument {
   }
 
   execute() {
-    return this;
+    throw new Error('Execute method is not implemented');
   }
 }
 

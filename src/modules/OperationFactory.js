@@ -27,7 +27,7 @@ class OperationFactory {
     'x³': Degree3,
     '√x': Root2,
     '∛x': Root3,
-    '!x': Fact,
+    'x!': Fact,
     '1/x': Inverse,
     '10ⁿ': TenDegreeX,
   };
